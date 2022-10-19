@@ -13,7 +13,15 @@ public class StackPractice {
         this.arr[++this.pointer] = value;
     }
 
+    public int pop(){
+        return this.arr[this.pointer--];
+    }
+
     public int[] getArr() {
         return this.arr;
+    }
+
+    public int getPointer() {
+        return pointer;
     }
 }

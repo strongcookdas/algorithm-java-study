@@ -26,8 +26,14 @@ public class StackPractice2 {
     }
 
     public int pop() {
+        if(this.isEmpty()){
+            throw new RuntimeException("스택이 비었습니다.");
+        }
         return this.arr[top--];
     }
 
 
+    public boolean isEmpty() {
+        return (top == -1) ? true : false;
+    }
 }

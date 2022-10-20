@@ -32,7 +32,21 @@ class StackPractice2Test {
         Integer[] arr = sp.getArr();
         assertEquals(20,sp.pop());
         assertEquals(10,sp.pop());
-        assertEquals(-1,sp.getTop());
+        assertEquals(-1,sp.getTop());//스택의 사이즈 체크
+        //Exception의 검증
+        assertThrows(RuntimeException.class,()->{
+            sp.pop();
+        });
+    }
+
+    @Test
+    @DisplayName("isEmpty test")
+    void isEmpty(){
+        StackPractice2 sp = new StackPractice2();
+        assertTrue(sp.isEmpty());
+        sp.push(10);
+        sp.pop();
+        assertTrue(sp.isEmpty());
     }
 
 }

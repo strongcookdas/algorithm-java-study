@@ -3,6 +3,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import week3.algorithm_1020.stack.StackPractice2;
 
+import java.util.EmptyStackException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class StackPractice2Test {
@@ -15,12 +17,15 @@ class StackPractice2Test {
     @Test
     @DisplayName("push test")
     void push() {
-        StackPractice2 sp = new StackPractice2();
+        StackPractice2 sp = new StackPractice2(2);
         sp.push(10);
         sp.push(20);
         Integer[] arr = sp.getArr();
         assertEquals(20, arr[1]);
         assertEquals(10, arr[0]);
+        assertThrows(StackOverflowError.class,()->{
+            sp.push(30);
+        });
     }
 
     @Test
@@ -34,7 +39,7 @@ class StackPractice2Test {
         assertEquals(10,sp.pop());
         assertEquals(-1,sp.getTop());//스택의 사이즈 체크
         //Exception의 검증
-        assertThrows(RuntimeException.class,()->{
+        assertThrows(EmptyStackException.class,()->{
             sp.pop();
         });
     }
@@ -47,6 +52,20 @@ class StackPractice2Test {
         sp.push(10);
         sp.pop();
         assertTrue(sp.isEmpty());
+    }
+
+    @Test
+    @DisplayName("peek test")
+    void peek(){
+        StackPractice2 sp = new StackPractice2();
+        assertThrows(EmptyStackException.class,()->{
+            sp.peek();
+        });
+        sp.push(10);
+        sp.push(20);
+        assertEquals(20,sp.peek());
+        sp.push(30);
+        assertEquals(30,sp.peek());
     }
 
 }

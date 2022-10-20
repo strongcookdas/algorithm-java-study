@@ -17,6 +17,14 @@ public class StackPractice {
         return this.arr[this.pointer--];
     }
 
+    public boolean isEmpty(){
+        return (this.pointer==-1)? true:false;
+    }
+
+    public int peek(){
+        return arr[this.pointer];
+    }
+
     public int[] getArr() {
         return this.arr;
     }

@@ -9,9 +9,9 @@ public class KthTest {
         int idx = 0;
 
         for (int[] command : commands) {
-            int[] tmp = Arrays.copyOfRange(array, command[0]-1, command[1]);
+            int[] tmp = Arrays.copyOfRange(array, command[0] - 1, command[1]);
             Arrays.sort(tmp);
-            answer[idx++] = tmp[command[2]-1];
+            answer[idx++] = tmp[command[2] - 1];
         }
 
         return answer;

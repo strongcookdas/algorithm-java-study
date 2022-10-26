@@ -1,7 +1,4 @@
-package week4.algorithm_1025;
-
-import java.util.HashSet;
-import java.util.Set;
+package week4.algorithm_1025.hash;
 
 public class HashTable {
     private int size = 10000;

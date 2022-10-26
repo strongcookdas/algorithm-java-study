@@ -1,4 +1,4 @@
-package week4.algorithm_1025;
+package week4.algorithm_1025.hash;
 
 public class HashTest {
     public int hash(String key){

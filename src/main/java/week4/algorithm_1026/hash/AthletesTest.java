@@ -74,7 +74,7 @@ public class AthletesTest {
         List<Node> list = table[this.hash(key)];
         for (Node tmp :
                 list) {
-            if (key.equals(tmp.getKey())) {
+            if (key.equals(tmp.getKey())&& tmp.getValue()==0) {
                 return tmp;
             }
         }
@@ -98,14 +98,14 @@ public class AthletesTest {
     public String solution(String[] participant, String[] completion) {
         List<Node>[] table = new ArrayList[10000];
         this.insert(table,participant,completion);
-        this.print(table);
+        //this.print(table);
+        Node tmp=null;
         for(String key:participant){
-            Node tmp = this.search(table,key);
-            if(tmp.getValue()==0){
-                return tmp.getKey();
+            if(this.search(table,key)!=null) {
+                tmp = this.search(table, key);
             }
         }
-        return null;
+        return tmp.getKey();
     }
 
 

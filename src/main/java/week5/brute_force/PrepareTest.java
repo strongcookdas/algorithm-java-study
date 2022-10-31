@@ -1,29 +1,42 @@
 package week5.brute_force;
 
-//1. 3명의 student 학생의 답안 형식을 배열로 선언
-//2. 2중 for문 사용 3번 반복하고 답안의 길이만금 비교
-//3. 맞으면 count++해준다.
-//4. count한 것을 answer 배열에 저장
-//6. answer 배열은 객체배열 (student 번호, count 필드가 있는 객체)
-//7. count를 기준으로 배열 정렬
-//8. 정렬된 학생 번호는 1차원 배열에 다시 저장
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class PrepareTest {
-    public int solution(int[] problem){
+    public int[] solution(int[] problem){
         int[] student1 = {1,2,3,4,5};
-        int count = 0;
+        int[] student2 = {2,1,2,3,2,4,2,5};
+        int[] student3 = {3,3,1,1,2,2,4,4,5,5};
+        int[] cnt = {0,0,0};
+        ArrayList<Integer> ans = new ArrayList<>();
+        int max = 0;
         for (int i = 0; i < problem.length; i++) {
-            if(problem[i]==student1[i%student1.length]){
-                count++;
-            }
-
+            if(student1[i%student1.length]==problem[i]) cnt[0]++;
+            if(student2[i%student2.length]==problem[i]) cnt[1]++;
+            if(student3[i%student3.length]==problem[i]) cnt[2]++;
         }
-        return count;
+
+        for (int i = 0; i < cnt.length; i++) {
+            if(cnt[i]>max){
+                max=cnt[i];
+            }
+        }
+
+        for (int i = 0; i < cnt.length; i++) {
+            if(cnt[i]==max){
+                ans.add(i+1);
+            }
+        }
+
+        Integer[] tmp = ans.toArray(new Integer[ans.size()]);
+        int[] answer = Arrays.stream(tmp).mapToInt(Integer::intValue).toArray();
+        return answer;
     }
 
     public static void main(String[] args) {
         PrepareTest test = new PrepareTest();
-        int[] problem = {1,2,3,4,5,1,2,5,1};
-        System.out.println(test.solution(problem));
+        int[] problem = {1,3,2,4,2};
+        System.out.println(Arrays.toString(test.solution(problem)));
     }
 }

@@ -9,14 +9,21 @@ package week5.brute_force;
 //8. 정렬된 학생 번호는 1차원 배열에 다시 저장
 
 public class PrepareTest {
-    public int[] solution(int[] answer){
+    public int solution(int[] problem){
         int[] student1 = {1,2,3,4,5};
+        int count = 0;
+        for (int i = 0; i < problem.length; i++) {
+            if(problem[i]==student1[i%student1.length]){
+                count++;
+            }
 
-        return null;
+        }
+        return count;
     }
 
     public static void main(String[] args) {
         PrepareTest test = new PrepareTest();
-        System.out.println();
+        int[] problem = {1,2,3,4,5,1,2,5,1};
+        System.out.println(test.solution(problem));
     }
 }

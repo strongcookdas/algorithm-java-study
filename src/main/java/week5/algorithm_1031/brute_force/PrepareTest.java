@@ -1,4 +1,4 @@
-package week5.brute_force;
+package week5.algorithm_1031.brute_force;
 
 import java.util.ArrayList;
 import java.util.Arrays;

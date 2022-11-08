@@ -8,15 +8,15 @@ public class BinarySearch {
         int endIdx = arr.length - 1;
         int ans = -1;
         int midIdx = arr.length / 2;
-        while (endIdx != startIdx) {
+        while (endIdx >= startIdx) {
             if (target > arr[midIdx])
                 startIdx = midIdx + 1;
             else if (target < arr[midIdx])
                 endIdx = midIdx - 1;
             else return midIdx + 1;
-            midIdx = startIdx + (endIdx - startIdx + 1) / 2;
+            midIdx = (startIdx + endIdx) / 2;
         }
-        return (arr[midIdx] == target) ? midIdx + 1 : -1;
+        return -1;
     }
 
     public static void main(String[] args) {

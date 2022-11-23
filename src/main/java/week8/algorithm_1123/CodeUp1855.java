@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class CodeUp1855 {
     public int solution (int n){
-        if(n==0) return 1;
-        return n*solution(--n);
+        if(n<=2) return 1;
+        return solution(n-1)+solution(n-2);
     }
 
     public static void main(String[] args) {

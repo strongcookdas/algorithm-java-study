@@ -1,6 +1,5 @@
 package week8.algorithm_1122;
 
-import java.math.BigInteger;
 import java.util.Scanner;
 
 public class CodeUp1854 {

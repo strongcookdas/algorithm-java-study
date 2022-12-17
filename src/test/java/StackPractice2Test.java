@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import week3.algorithm_1020.stack.StackPractice2;
+import algorithm.Like_lion.week3.algorithm_1020.stack.StackPractice2;
 
 import java.util.EmptyStackException;
 

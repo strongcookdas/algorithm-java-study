@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import week3.algorithm_1021.stack.SolveBracket;
+import algorithm.Like_lion.week3.algorithm_1021.stack.SolveBracket;
 
 import static org.junit.jupiter.api.Assertions.*;
 

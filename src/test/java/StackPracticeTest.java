@@ -2,7 +2,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import week3.algorithm_1019.stack.StackPractice;
+import algorithm.Like_lion.week3.algorithm_1019.stack.StackPractice;
 
 import static org.junit.jupiter.api.Assertions.*;
 

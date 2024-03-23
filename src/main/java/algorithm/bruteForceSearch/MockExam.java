@@ -4,13 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/*
-프로그래머스 모의고사
-1. 학생들의 정답 패턴을 배열로 저장한다.
-2. 문제 정답과 정답 패턴을 비교한다.
-3. 맞춘 문제의 최댓값을 구한다.
-4. 최댓값과 비교하여 많이 맞춘 학생을 배열에 추가한다.
- */
 public class MockExam {
     public int[] solution(int[] arr) {
         int[] student1 = new int[]{1, 2, 3, 4, 5};

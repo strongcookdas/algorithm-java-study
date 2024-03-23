@@ -1,4 +1,4 @@
-package algorithm.string;
+package algorithm.string.inflearn;
 
 import java.util.*;
 

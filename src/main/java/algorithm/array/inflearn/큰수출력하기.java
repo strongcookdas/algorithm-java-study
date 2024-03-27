@@ -1,4 +1,4 @@
-package algorithm.array;
+package algorithm.array.inflearn;
 
 import java.util.*;
 

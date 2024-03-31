@@ -1,4 +1,4 @@
-package algorithm.bruteForceSearch;
+package algorithm.brute_force;
 
 import java.util.ArrayList;
 import java.util.Arrays;

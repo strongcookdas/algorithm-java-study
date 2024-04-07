@@ -1,20 +1,21 @@
 package algorithm.stack.boj;
 
 import java.util.*;
-//Stack 안쓰고 해결한 버전
+
+//Stack 쓰고 해결한 버전
 public class 쇠막대기 {
     public static int solution(String s) {
         int answer = 0;
-        int count = 0;
+        Stack<Character> stack = new Stack<>();
         for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '(') {
-                count++;
-            } else {
+            if (s.charAt(i) == '(') stack.push(s.charAt(i));
+            else {
                 if (s.charAt(i - 1) == '(') {
-                    answer += (--count);
+                    stack.pop();
+                    answer += stack.size();
                 } else {
+                    stack.pop();
                     answer++;
-                    count--;
                 }
             }
         }

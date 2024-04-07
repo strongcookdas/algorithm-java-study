@@ -3,7 +3,7 @@ package algorithm.stack.boj;
 import java.util.*;
 
 //Stack 쓰고 해결한 버전
-public class 쇠막대기 {
+public class Boj10799쇠막대기 {
     public static int solution(String s) {
         int answer = 0;
         Stack<Character> stack = new Stack<>();

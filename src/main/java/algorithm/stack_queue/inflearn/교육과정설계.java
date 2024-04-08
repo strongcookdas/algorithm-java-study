@@ -13,21 +13,13 @@ import java.util.*;
 public class 교육과정설계 {
     public static String solution(String s, String t) {
         Queue<Character> eSubjects = new LinkedList<>();
-        Queue<Character> subjects = new LinkedList<>();
         for (char c : s.toCharArray()) {
             eSubjects.offer(c);
         }
-        for (char c : t.toCharArray()) {
-            subjects.offer(c);
-        }
-        while (!subjects.isEmpty()) {
-            if (eSubjects.contains(subjects.peek())) {
-                if (eSubjects.peek() == subjects.peek()) {
-                    eSubjects.poll();
-                    subjects.poll();
-                } else return "NO";
-            } else {
-                subjects.poll();
+        for (int i = 0; i < t.length(); i++) {
+            if(eSubjects.contains(t.charAt(i))){
+                if(eSubjects.peek() == t.charAt(i)) eSubjects.poll();
+                else return "NO";
             }
         }
         if (!eSubjects.isEmpty()) return "NO";

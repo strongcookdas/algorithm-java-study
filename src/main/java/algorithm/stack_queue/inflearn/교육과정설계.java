@@ -12,7 +12,6 @@ import java.util.*;
  */
 public class 교육과정설계 {
     public static String solution(String s, String t) {
-        String answer = "YES";
         Queue<Character> eSubjects = new LinkedList<>();
         Queue<Character> subjects = new LinkedList<>();
         for (char c : s.toCharArray()) {

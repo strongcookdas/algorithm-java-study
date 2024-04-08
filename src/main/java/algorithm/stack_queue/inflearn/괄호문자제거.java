@@ -1,4 +1,4 @@
-package algorithm.stack.inflearn;
+package algorithm.stack_queue.inflearn;
 
 import java.util.*;
 

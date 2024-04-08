@@ -1,4 +1,4 @@
-package algorithm.stack.programmers;
+package algorithm.stack_queue.programmers;
 
 import java.util.*;
 public class 크레인인형뽑기 {

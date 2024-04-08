@@ -1,4 +1,4 @@
-package algorithm.stack.boj;
+package algorithm.stack_queue.boj;
 
 import java.util.*;
 

@@ -1,7 +1,5 @@
 # 알고리즘
 
-<hr/>
-
 ## 자료구조 Method 정리
 
 - ArrayList

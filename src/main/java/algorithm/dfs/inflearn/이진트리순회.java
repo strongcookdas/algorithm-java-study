@@ -1,4 +1,4 @@
-package algorithm.recursion.inflearn;
+package algorithm.dfs.inflearn;
 
 class Node {
     int data;

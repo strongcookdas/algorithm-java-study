@@ -1,7 +1,17 @@
-package algorithm.recursion.inflearn;
+package algorithm.bfs.inflearn;
+
 
 import java.util.*;
 
+class Node {
+    int data;
+    Node lt, rt;
+
+    public Node(int value) {
+        this.data = value;
+        lt = rt = null;
+    }
+}
 public class 이진트리레벨탐색 {
     static Node root;
 

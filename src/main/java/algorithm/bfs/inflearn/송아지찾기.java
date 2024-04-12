@@ -1,4 +1,4 @@
-package algorithm.recursion.inflearn;
+package algorithm.bfs.inflearn;
 
 import java.util.*;
 

@@ -3,40 +3,33 @@ package algorithm.dfs.inflearn;
 import java.util.*;
 
 public class 합이같은부분집합 {
-    static int n; // 원소 수
-    static int[] arr; // 배열
-    static int[] visit; // 인덱스 방문했는지 검사
-    static int count = 0; // 서로소 집합끼리 더한 결과가 같으면 +1
+    static String answer = "NO";
+    static int n, total = 0;
+    static boolean flag = false;
 
-    public static void dfs(int d) {
-        if (d == n) {
-            int c1 = 0;
-            int c2 = 0;
-            for (int i = 0; i < visit.length; i++) {
-                if (visit[i] == 1) c1 += arr[i];
-                else c2 += arr[i];
+    public static void dfs(int L, int sum, int[] arr) {
+        if(flag) return; //서로소 집합의 합이 이미 같을 때 스택에 쌓인 함수들 return;
+        if(sum>total/2) return; // 이건 깊이 우선 탐색 sum이 totla의 절반이 넘어가면 더 탐색해봤자 무의미
+        if(L == n){
+            if((total-sum)==sum){
+                answer="YES";
+                flag = true;
             }
-            if (c1 == c2) count++;
-        } else {
-            visit[d] = 1;
-            dfs(d + 1);
-            visit[d] = 0;
-            dfs(d + 1);
+        }else{
+            dfs(L+1, sum+arr[L], arr);
+            dfs(L+1, sum,arr);
         }
-    }
-
-    public static String solution() {
-        dfs(0);
-        if (count>0) return "YES";
-        return "NO";
     }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         n = scanner.nextInt();
-        visit = new int[n];
-        arr = new int[n];
-        for (int i = 0; i < n; i++) arr[i] = scanner.nextInt();
-        System.out.println(solution());
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = scanner.nextInt();
+            total += arr[i];
+        }
+        dfs(0,0,arr);
+        System.out.println(answer);
     }
 }

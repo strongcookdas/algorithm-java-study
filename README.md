@@ -2,9 +2,13 @@
 
 ## 알고리즘 유형
 - DFS
-  - 전위 순회 : root - left - right (ex. +12)
-  - 중위 순회 : left - root - right (ex. 1+2)
-  - 후위 순회 : left - right - root (ex. 12+)
+  - 탐색 유형
+    - 전위 순회 : root - left - right (ex. +12)
+    - 중위 순회 : left - root - right (ex. 1+2)
+    - 후위 순회 : left - right - root (ex. 12+)
+  - 고려할 사항
+    - 배열의 원소를 조합해보면서 최적의 값을 찾는 문제에서 원소의 정렬 상태에 따라 시간 최적화가 다르게 나온다.
+      - ex. dfs - 동전 교환
 - BFS
   - 최단 거리 구할 때 주로 사용
 ## 자료구조 Method 정리

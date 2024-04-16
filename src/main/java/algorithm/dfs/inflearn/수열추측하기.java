@@ -3,41 +3,34 @@ package algorithm.dfs.inflearn;
 import java.util.*;
 
 public class 수열추측하기 {
-    static int n;
-    static int f;
-    static int[][] ch = new int[12][12];
-    static int[] bc, pm, visit;
+    static int n, f;
+    static int[][] dy = new int[35][35];
+    static int[] bc, pm, ch;
     static boolean flag = false;
 
-    public static int combination(int n, int r) {
-        if (ch[n][r] > 0) return ch[n][r];
+    public static int combi(int n, int r) {
+        if (dy[n][r] > 0) return dy[n][r];
         if (n == r || r == 0) return 1;
-        return combination(n - 1, r) + combination(n - 1, r - 1);
+        return combi(n - 1, r) + combi(n - 1, r - 1);
     }
 
-    public static void DFS(int L) {
+    public static void DFS(int L, int sum) {
         if (flag) return;
         if (L == n) {
-            int sum = 0;
-            for (int i = 0; i < n; i++) sum += (pm[i] * bc[i]);
-            if (sum == f) flag = true;
-            return;
+            if (sum == f) {
+                for (int x : pm) System.out.print(x + " ");
+                flag = true;
+            }
+        } else {
+            for (int i = 1; i <= n; i++) {
+                if (ch[i] == 0) {
+                    ch[i] = 1;
+                    pm[L] = i;
+                    DFS(L + 1, sum + (pm[L] * bc[L]));
+                    ch[i] = 0;
+                }
+            }
         }
-        for (int i = 1; i <= n; i++) {
-            if (visit[i] != 0) continue;
-            if (flag) continue;
-            pm[L] = i;
-            visit[i] = 1;
-            DFS(L + 1);
-            visit[i] = 0;
-        }
-    }
-
-    public static void solution() {
-        for (int i = 0; i < n; i++) {
-            bc[i] = combination(n - 1, i);
-        }
-        DFS(0);
     }
 
     public static void main(String[] args) {
@@ -46,8 +39,10 @@ public class 수열추측하기 {
         f = kb.nextInt();
         bc = new int[n];
         pm = new int[n];
-        visit = new int[n + 1];
-        solution();
-        for (int i : pm) System.out.print(i + " ");
+        ch = new int[n + 1];
+        for (int i = 0; i < n; i++) {
+            bc[i] = combi(n - 1, i);
+        }
+        DFS(0, 0);
     }
 }

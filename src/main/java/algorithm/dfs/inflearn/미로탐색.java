@@ -6,19 +6,21 @@ public class 미로탐색 {
     static int answer = 0;
     static int[] dx = {0, 0, -1, 1};
     static int[] dy = {-1, 1, 0, 0};
-    static int[][] arr = new int[7][7], visit = new int[7][7];
+    static int[][] arr = new int[7][7];
 
     public static void DFS(int x, int y) {
         if (x == 6 && y == 6) {
             answer++;
             return;
         }
-        if (x < 0 || x >= 7 || y < 0 || y >= 7) return;
-        if (arr[y][x] != 0 || visit[y][x] != 0) return;
         for (int i = 0; i < dx.length; i++) {
-            visit[y][x] = 1;
-            DFS(x + dx[i], y + dy[i]);
-            visit[y][x] = 0;
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+            if (nx >= 0 && nx < 7 && ny >= 0 && ny < 7 && arr[ny][nx] == 0) {
+                arr[ny][nx] = 1;
+                DFS(nx,ny);
+                arr[ny][nx] = 0;
+            }
         }
     }
 
@@ -29,6 +31,7 @@ public class 미로탐색 {
                 arr[i][j] = kb.nextInt();
             }
         }
+        arr[0][0] = 1;
         DFS(0, 0);
         System.out.println(answer);
     }

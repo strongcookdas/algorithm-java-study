@@ -1,6 +1,7 @@
 package algorithm.bfs.boj;
 
 import java.util.*;
+import java.io.*;
 
 class Point {
     int x, y;
@@ -12,11 +13,13 @@ class Point {
 }
 
 public class 토마토 {
-    static int n, m;
-    static int[] dy={-1, 0, 1, 0};
-    static int[] dx={0, 1, 0, -1};
-    static int[][] board, dis;
     static Queue<Point> Q = new LinkedList<>();
+    static int m, n;
+    static int t1 = 0, t2 = 0, t3 = 0;
+    static int answer = Integer.MIN_VALUE;
+    static int[] dx = {0, 0, -1, 1};
+    static int[] dy = {-1, 1, 0, 0};
+    static int[][] box, dis;
 
     public static void BFS() {
         while (!Q.isEmpty()) {
@@ -24,42 +27,41 @@ public class 토마토 {
             for (int i = 0; i < 4; i++) {
                 int nx = tmp.x + dx[i];
                 int ny = tmp.y + dy[i];
-                if (nx >= 1 && nx <= m && ny >= 1 && ny <= n && board[ny][nx] == 0) {
-                    board[ny][nx] = 1;
+                if (nx >= 0 && nx < m && ny >= 0 && ny < n && box[ny][nx] == 0) {
+                    box[ny][nx] = 1;
                     Q.offer(new Point(nx, ny));
                     dis[ny][nx] = dis[tmp.y][tmp.x] + 1;
+                    answer = Math.max(answer, dis[ny][nx]);
+                    t3++;
                 }
             }
         }
     }
 
-    public static void main(String[] args) {
-        Scanner kb = new Scanner(System.in);
-        n = kb.nextInt();
-        m = kb.nextInt();
-        board = new int[n + 1][m + 1];
-        dis = new int[n + 1][m + 1];
-        for (int i = 1; i < n + 1; i++) {
-            for (int j = 1; j < m + 1; j++) {
-                board[i][j] = kb.nextInt();
-                if (board[i][j] > 0) Q.offer(new Point(j, i));
-            }
-        }
-        BFS();
-        boolean flag = true;
-        int answer = Integer.MIN_VALUE;
-        for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= m; j++) {
-                if (board[i][j] == 0) flag = false;
-            }
-        }
-        if (flag) {
-            for (int i = 1; i <= n; i++) {
-                for (int j = 1; j <= m; j++) {
-                    answer = Math.max(answer, dis[i][j]);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        m = Integer.parseInt(st.nextToken());
+        n = Integer.parseInt(st.nextToken());
+        box = new int[n][m];
+        dis = new int[n][m];
+        for (int i = 0; i < n; i++) {
+            st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < m; j++) {
+                box[i][j] = Integer.parseInt(st.nextToken());
+                if (box[i][j] == 0) t1++;
+                else if (box[i][j] == 1) {
+                    t2++;
+                    Q.offer(new Point(j, i));
                 }
             }
-            System.out.println(answer);
-        } else System.out.println(-1);
+        }
+
+        if (t1 == 0 && t2 > 0) answer = 0;
+        else {
+            BFS();
+            if (t1 != t3) answer = -1;
+        }
+        System.out.println(answer);
     }
 }

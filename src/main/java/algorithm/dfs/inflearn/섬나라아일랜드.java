@@ -5,6 +5,13 @@ package algorithm.dfs.inflearn;
 3. 방문한 곳은 0으로 체크
 4. DFS 탐색이 끝나면 개수 +1
 5. 2번 반복
+
+수정 후
+1. arr를 순회
+2. 1인 영역 DFS 탐색 (answer +1)
+3. 방문한 곳은 0으로 체크
+4. 상,하,좌,우,대각선 탐색
+5. 2번 반복
  */
 
 import java.util.*;
@@ -28,18 +35,10 @@ public class 섬나라아일랜드 {
     public static void DFS(Point p) {
         if (board[p.y][p.x] != 1) return;
         board[p.y][p.x] = 0;
-        flag = true;
         for (int i = 0; i < 8; i++) {
             int nx = p.x + dx[i];
             int ny = p.y + dy[i];
             if (nx < 0 || nx >= n || ny < 0 || ny >= n || board[ny][nx] != 1) continue;
-//            for(int j = 0; j<n; j++){
-//                for(int k = 0; k<n; k++){
-//                    System.out.print(board[j][k]);
-//                }
-//                System.out.println();
-//            }
-//            System.out.println();
             DFS(new Point(nx, ny));
         }
     }
@@ -47,9 +46,10 @@ public class 섬나라아일랜드 {
     public static void solution() {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                DFS(new Point(j, i));
-                if (flag) answer++;
-                flag = false;
+                if (board[i][j] == 1) {
+                    answer++;
+                    DFS(new Point(j, i));
+                }
             }
         }
     }

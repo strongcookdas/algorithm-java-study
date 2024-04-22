@@ -11,6 +11,7 @@
       - ex. dfs - 동전 교환
 - BFS
   - 최단 거리 구할 때 주로 사용
+- Greedy
 ## 자료구조 Method 정리
 
 - ArrayList

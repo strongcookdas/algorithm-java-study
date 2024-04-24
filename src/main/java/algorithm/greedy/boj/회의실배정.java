@@ -1,4 +1,4 @@
-package algorithm.greedy.inflearn;
+package algorithm.greedy.boj;
 /*
 1. 끝나는 시간을 기준으로 오름차순으로 정렬 (끝나는 시간이 같으면 시작 시간도 오름차순으로 정렬)
 2. tmp 변수에 arr의 첫번째 값 대입
@@ -7,6 +7,7 @@ package algorithm.greedy.inflearn;
  */
 
 import java.util.*;
+import java.io.*;
 
 class Meeting implements Comparable<Meeting> {
     int start;
@@ -33,18 +34,20 @@ public class 회의실배정 {
 //        for (Meeting m : arr) System.out.println(m.start + " " + m.end);
         Meeting tmp = arr.get(0);
         for (int i = 1; i < n; i++) {
-            if (tmp.end <= arr.get(i).start){
+            if (tmp.end <= arr.get(i).start) {
                 tmp = arr.get(i);
                 answer++;
             }
         }
     }
 
-    public static void main(String[] args) {
-        Scanner kb = new Scanner(System.in);
-        n = kb.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        n = Integer.parseInt(st.nextToken());
         for (int i = 0; i < n; i++) {
-            arr.add(new Meeting(kb.nextInt(), kb.nextInt()));
+            st = new StringTokenizer(br.readLine());
+            arr.add(new Meeting(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())));
         }
         solution();
         System.out.println(answer);

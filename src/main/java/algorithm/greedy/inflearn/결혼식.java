@@ -3,6 +3,7 @@ package algorithm.greedy.inflearn;
 import java.util.*;
 
 /*
+오답
 0. arr 정렬
 1. greedy와 투포인터 사용
 2. lt = 다음 타임의 start rt = 현재 타임의 end

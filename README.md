@@ -28,7 +28,7 @@
   - 나머지 메소드들은 큐와 비슷하다.
 - Comparable Interface
   - 클래스의 기본 정렬 기준을 설정하는 인터페이스
-  - Comparable Interface의 `compareTo` 메소드를 구현하여 정령의 기준이 되는 메소드를 정의하여 사용
+  - Comparable Interface의 `compareTo` 메소드를 구현하여 정렬의 기준이 되는 메소드를 정의하여 사용
   - `compareTo`의 리턴값
     - 음수 리턴 (자리 유지)
     - 0 리턴 (자리 유지)

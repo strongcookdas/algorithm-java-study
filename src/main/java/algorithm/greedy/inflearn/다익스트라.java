@@ -2,11 +2,11 @@ package algorithm.greedy.inflearn;
 
 import java.util.*;
 
-class Edge implements Comparable<Edge> {
+class Node implements Comparable<Edge> {
     public int vex;
     public int cost;
 
-    Edge(int vex, int cost) {
+    public Node(int vex, int cost) {
         this.vex = vex;
         this.cost = cost;
     }
@@ -19,22 +19,22 @@ class Edge implements Comparable<Edge> {
 
 public class 다익스트라 {
     static int n, m;
-    static ArrayList<ArrayList<Edge>> graph;
+    static ArrayList<ArrayList<Node>> graph;
     static int[] dis;
 
     public static void solution(int v) {
-        PriorityQueue<Edge> pQ = new PriorityQueue<>();
-        pQ.offer(new Edge(v, 0));
+        PriorityQueue<Node> pQ = new PriorityQueue<>();
+        pQ.offer(new Node(v, 0));
         dis[v] = 0;
         while (!pQ.isEmpty()) {
-            Edge tmp = pQ.poll();
+            Node tmp = pQ.poll();
             int now = tmp.vex;
             int nowCost = tmp.cost;
             if (nowCost > dis[now]) continue;
-            for (Edge ob : graph.get(now)) {
+            for (Node ob : graph.get(now)) {
                 if (dis[ob.vex] > nowCost + ob.cost) {
                     dis[ob.vex] = nowCost + ob.cost;
-                    pQ.offer(new Edge(ob.vex, nowCost + ob.cost));
+                    pQ.offer(new Node(ob.vex, nowCost + ob.cost));
                 }
             }
         }
@@ -44,9 +44,9 @@ public class 다익스트라 {
         Scanner kb = new Scanner(System.in);
         n = kb.nextInt();
         m = kb.nextInt();
-        graph = new ArrayList<ArrayList<Edge>>();
+        graph = new ArrayList<ArrayList<Node>>();
         for (int i = 0; i <= n; i++) {
-            graph.add(new ArrayList<Edge>());
+            graph.add(new ArrayList<Node>());
         }
         dis = new int[n + 1];
         Arrays.fill(dis, Integer.MAX_VALUE);
@@ -54,7 +54,7 @@ public class 다익스트라 {
             int a = kb.nextInt();
             int b = kb.nextInt();
             int c = kb.nextInt();
-            graph.get(a).add(new Edge(b, c));
+            graph.get(a).add(new Node(b, c));
         }
         solution(1);
         for (int i = 2; i <= n; i++) {

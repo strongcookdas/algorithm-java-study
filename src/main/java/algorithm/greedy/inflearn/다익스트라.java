@@ -19,22 +19,22 @@ class Node implements Comparable<Edge> {
 
 public class 다익스트라 {
     static int n, m;
-    static ArrayList<ArrayList<Node>> graph;
+    static ArrayList<ArrayList<City>> graph;
     static int[] dis;
 
     public static void solution(int v) {
-        PriorityQueue<Node> pQ = new PriorityQueue<>();
-        pQ.offer(new Node(v, 0));
+        PriorityQueue<City> pQ = new PriorityQueue<>();
+        pQ.offer(new City(v, 0));
         dis[v] = 0;
         while (!pQ.isEmpty()) {
-            Node tmp = pQ.poll();
+            City tmp = pQ.poll();
             int now = tmp.vex;
             int nowCost = tmp.cost;
             if (nowCost > dis[now]) continue;
-            for (Node ob : graph.get(now)) {
+            for (City ob : graph.get(now)) {
                 if (dis[ob.vex] > nowCost + ob.cost) {
                     dis[ob.vex] = nowCost + ob.cost;
-                    pQ.offer(new Node(ob.vex, nowCost + ob.cost));
+                    pQ.offer(new City(ob.vex, nowCost + ob.cost));
                 }
             }
         }
@@ -44,9 +44,9 @@ public class 다익스트라 {
         Scanner kb = new Scanner(System.in);
         n = kb.nextInt();
         m = kb.nextInt();
-        graph = new ArrayList<ArrayList<Node>>();
+        graph = new ArrayList<ArrayList<City>>();
         for (int i = 0; i <= n; i++) {
-            graph.add(new ArrayList<Node>());
+            graph.add(new ArrayList<City>());
         }
         dis = new int[n + 1];
         Arrays.fill(dis, Integer.MAX_VALUE);
@@ -54,7 +54,7 @@ public class 다익스트라 {
             int a = kb.nextInt();
             int b = kb.nextInt();
             int c = kb.nextInt();
-            graph.get(a).add(new Node(b, c));
+            graph.get(a).add(new City(b, c));
         }
         solution(1);
         for (int i = 2; i <= n; i++) {

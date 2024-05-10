@@ -18,7 +18,10 @@
 - Character
     - isLowerCase(char c), isUpperCase(char c) 대소문자 확인
     - toLowerCase(char c), toUpperCase(char c) 대소문자 변환
+- 정규식
+  - [^A-Z] 대문자 영어가 아닌 문자들
 
 ### 다시 풀어볼 문제
 - 인프런
   - 중복문자제거
+  - 팰린드롬

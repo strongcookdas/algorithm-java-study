@@ -1,4 +1,4 @@
-package algorithm.brute_force.swea;
+package algorithm.string.swea;
 
 import java.util.*;
 

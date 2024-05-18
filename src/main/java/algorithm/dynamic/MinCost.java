@@ -32,15 +32,15 @@ public class MinCost {
         return dp[matrix.length - 1][matrix[0].length - 1];
     }
 
-    public static void main(String[] args) {
-        int[][] matrix = {
-                {1, 3, 2},
-                {4, 6, 2},
-                {1, 2, 4}
-        };
-
-        MinCost minCost = new MinCost();
-        var r = minCost.getMinCost(matrix);
-        System.out.println(r);
-    }
+//    public static void main(String[] args) {
+//        int[][] matrix = {
+//                {1, 3, 2},
+//                {4, 6, 2},
+//                {1, 2, 4}
+//        };
+//
+//        MinCost minCost = new MinCost();
+//        var r = minCost.getMinCost(matrix);
+//        System.out.println(r);
+//    }
 }

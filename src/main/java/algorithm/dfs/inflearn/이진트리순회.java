@@ -11,25 +11,42 @@ class Node {
 }
 
 public class 이진트리순회 {
-    static Node root;
+    public static void DFS1(Node node) {//전위순회
+        if (node == null) return;
+        System.out.print(node.data + " ");
+        DFS1(node.lt);
+        DFS1(node.rt);
+    }
 
-    public static void DFS(Node root) {
-        if (root == null) return;
-//        System.out.print(root.data+" "); //전위 순회
-        DFS(root.lt);
-        System.out.print(root.data+" "); //중위 순회
-        DFS(root.rt);
-//        System.out.print(root.data+" "); //후위 순회
+    public static void DFS2(Node node) {//중위 순회
+        if (node == null) return;
+        DFS2(node.lt);
+        System.out.print(node.data + " ");
+        DFS2(node.rt);
+    }
+
+    public static void DFS3(Node node) {
+        if (node == null) return;
+        DFS3(node.lt);
+        DFS3(node.rt);
+        System.out.print(node.data + " ");
     }
 
     public static void main(String[] args) {
-        root = new Node(1);
+        Node root = new Node(1);
         root.lt = new Node(2);
         root.rt = new Node(3);
         root.lt.lt = new Node(4);
         root.lt.rt = new Node(5);
         root.rt.lt = new Node(6);
         root.rt.rt = new Node(7);
-        DFS(root);
+        System.out.print("전위순회 출력 : ");
+        DFS1(root);
+        System.out.println();
+        System.out.print("중위순회 출력 : ");
+        DFS2(root);
+        System.out.println();
+        System.out.print("후위순회 출력 : ");
+        DFS3(root);
     }
 }

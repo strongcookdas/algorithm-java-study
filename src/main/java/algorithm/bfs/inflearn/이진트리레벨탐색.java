@@ -1,7 +1,7 @@
 package algorithm.bfs.inflearn;
 
-import java.sql.SQLOutput;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
 
 class Node {
     int data;

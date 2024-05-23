@@ -1,6 +1,6 @@
 package algorithm.bfs.inflearn;
 
-
+import java.sql.SQLOutput;
 import java.util.*;
 
 class Node {
@@ -12,29 +12,27 @@ class Node {
         lt = rt = null;
     }
 }
-public class 이진트리레벨탐색 {
-    static Node root;
 
-    public static void BFS(Node root) {
-        Queue<Node> Q = new LinkedList<>();
-        Q.offer(root);
-        int L = 0;
-        while (!Q.isEmpty()) {
-            int len = Q.size();
-            System.out.print(L + " : ");
-            for (int i = 0; i < len; i++) {
-                Node cur = Q.poll();
-                System.out.print(cur.data + " ");
-                if (cur.lt != null) Q.offer(cur.lt);
-                if (cur.lt != null) Q.offer(cur.rt);
+public class 이진트리레벨탐색 {
+    public static void BFS(Node node) {
+        Queue<Node> q = new LinkedList<>();
+        q.offer(node);
+        int L = 1;
+        while (!q.isEmpty()) {
+            int n = q.size();
+            System.out.print(L++ + " : ");
+            for (int i = 0; i < n; i++) {
+                Node tmp = q.poll();
+                System.out.print(tmp.data + " ");
+                if (tmp.lt != null) q.offer(tmp.lt);
+                if (tmp.rt != null) q.offer(tmp.rt);
             }
-            L++;
             System.out.println();
         }
     }
 
     public static void main(String[] args) {
-        root = new Node(1);
+        Node root = new Node(1);
         root.lt = new Node(2);
         root.rt = new Node(3);
         root.lt.lt = new Node(4);

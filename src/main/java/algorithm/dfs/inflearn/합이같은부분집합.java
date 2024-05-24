@@ -2,34 +2,38 @@ package algorithm.dfs.inflearn;
 
 import java.util.*;
 
+/*
+- DFS 부분집합 구하는 방식을 활용
+- 1개의 부분 집합이 구해지면 총 합에서 부분 집합의 합을 빼 비교.
+    - 같으면 YES
+    - 다르면 NO
+- 합이 총 합의 절반보다 높으면 return
+ */
 public class 합이같은부분집합 {
-    static String answer = "NO";
-    static int n, total = 0;
+    static int N, total = 0;
     static boolean flag = false;
+    static int[] arr;
 
-    public static void dfs(int L, int sum, int[] arr) {
-        if(flag) return; //서로소 집합의 합이 이미 같을 때 스택에 쌓인 함수들 return;
-        if(sum>total/2) return; // 이건 깊이 우선 탐색 sum이 totla의 절반이 넘어가면 더 탐색해봤자 무의미
-        if(L == n){
-            if((total-sum)==sum){
-                answer="YES";
-                flag = true;
-            }
-        }else{
-            dfs(L+1, sum+arr[L], arr);
-            dfs(L+1, sum,arr);
+    public static void DFS(int L, int sum) {
+        if (flag) return;
+        if (sum > total / 2) return;
+        if (L == N) {
+            if (sum == total - sum) flag = true;
+        } else {
+            DFS(L + 1, sum + arr[L]);
+            DFS(L + 1, sum);
         }
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        n = scanner.nextInt();
-        int[] arr = new int[n];
-        for (int i = 0; i < n; i++) {
-            arr[i] = scanner.nextInt();
+        Scanner kb = new Scanner(System.in);
+        N = kb.nextInt();
+        arr = new int[N];
+        for (int i = 0; i < N; i++) {
+            arr[i] = kb.nextInt();
             total += arr[i];
         }
-        dfs(0,0,arr);
-        System.out.println(answer);
+        DFS(0, 0);
+        System.out.println((flag) ? "YES" : "NO");
     }
 }

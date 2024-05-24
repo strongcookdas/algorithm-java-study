@@ -1,45 +1,46 @@
 package algorithm.bfs.inflearn;
 
 import java.util.*;
+
 public class 최단거리 {
-    static int n, m;
     static ArrayList<ArrayList<Integer>> graph;
+    static Queue<Integer> Q;
     static int[] ch, dis;
-    public static void BFS(int v){
-        Queue<Integer> queue = new LinkedList<>();
-        ch[v]  = 1;
+    static int N, M;
+
+    public static void BFS(int v) {
+        ch[v] = 1;
         dis[v] = 0;
-        queue.offer(v);
-        while(!queue.isEmpty()){
-            int cv = queue.poll();
-            for(int nv : graph.get(cv)){
-                if(ch[nv]==0){
+        Q = new LinkedList<>();
+        Q.offer(v);
+        while (!Q.isEmpty()) {
+            int cv = Q.poll();
+            for (int nv : graph.get(cv)) {
+                if(ch[nv] == 0){
                     ch[nv] = 1;
-                    queue.offer(nv);
-                    dis[nv] = dis[cv]+1;
+                    Q.offer(nv);
+                    dis[nv] = dis[cv] + 1;
                 }
             }
         }
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Scanner kb = new Scanner(System.in);
-        n = kb.nextInt();
-        m = kb.nextInt();
-        graph = new ArrayList<ArrayList<Integer>>();
-        for(int i = 0; i<=n; i++){
-            graph.add(new ArrayList<Integer>());
-        }
-        ch = new int[n+1];
-        dis = new int[n+1];
-        for(int i = 0; i<m; i++){
+        N = kb.nextInt();
+        ch = new int[N+1];
+        dis = new int[N+1];
+        graph = new ArrayList<>();
+        for (int i = 0; i < N + 1; i++) graph.add(new ArrayList<>());
+        M = kb.nextInt();
+        for (int i = 0; i < M; i++) {
             int a = kb.nextInt();
             int b = kb.nextInt();
             graph.get(a).add(b);
         }
         BFS(1);
-        for(int d : dis){
-            System.out.println(d);
+        for (int i = 2; i<=N; i++) {
+            System.out.println(i + " : " + dis[i]);
         }
     }
 }

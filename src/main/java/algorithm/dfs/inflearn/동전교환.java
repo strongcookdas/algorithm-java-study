@@ -1,42 +1,40 @@
 package algorithm.dfs.inflearn;
 /*
-- DFS 문제 (BFS 적용 가능할 거 같기도)
-- 중복 순열 문제처럼 푼다.
-- DFS 함수 종료 조건
-    - L이 MIN 값보다 클때
-    - 거슬러 줄 금액보다 총 금액이 초과될 때
-
-- 시간 초과 난 이유
-    - 단위가 작은 동전부터 탐색했기 때문에 탐색 횟수가 많아짐
-    - 단위가 큰 동전부터 탐색
+- DFS 활용
+    - 중복 순열 구하는 방식 활용
+- 종료 조건
+    - 합이 넘어갈 때
+    - 최소 개수가 넘어갈 때
+    - 합이 거슬러 줄 금액과 같을 때
+        - 비교
+- 시간 초과
+    - 원소가 많을 경우
+    - 내림차순으로 정렬해야 시간 초과가 발생 x
  */
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Scanner;
+
 public class 동전교환 {
-    static int n;
+    static int N, M, answer = Integer.MAX_VALUE;
     static Integer[] arr;
-    static int min = Integer.MAX_VALUE;
-    static int m;
-    public static void DFS(int L, int total){
-        if(total>m) return;
-        if(L>=min) return;
-        if(total == m) {
-            min = Math.min(min, L);
-        }else{
-            for(int i = 0; i<n; i++){
-                DFS(L+1, total+arr[i]);
-            }
-        }
+
+    public static void DFS(int L, int sum) {
+        if (sum > M) return;
+        if (L > answer) return;
+        if (sum == M) answer = Math.min(answer, L);
+        else for (int i = 0; i < N; i++) DFS(L + 1, sum + arr[i]);
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Scanner kb = new Scanner(System.in);
-        n = kb.nextInt();
-        arr = new Integer[n];
-        for(int i = 0; i<n; i++) arr[i] = kb.nextInt();
-        Arrays.sort(arr,Collections.reverseOrder());
-        m = kb.nextInt();
-        DFS(0,0);
-        System.out.println(min);
+        N = kb.nextInt();
+        arr = new Integer[N];
+        for (int i = 0; i < N; i++) arr[i] = kb.nextInt();
+        Arrays.sort(arr, Collections.reverseOrder());
+        M = kb.nextInt();
+        DFS(0, 0);
+        System.out.println(answer);
     }
 }

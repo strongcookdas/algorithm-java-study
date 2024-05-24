@@ -1,26 +1,32 @@
 package algorithm.dfs.inflearn;
 
 import java.util.*;
+/*
+- DFS 활용
+- 종료 조건
+    - 트럭 제한 무게 넘어갈 때
+ */
 
 public class 바둑이승차 {
-    static int c, n, max = Integer.MIN_VALUE;
+    static int C, N, answer = Integer.MIN_VALUE;
+    static int[] arr;
 
-    public static void dfs(int L, int sum, int[] arr) {
-        if (sum > c) return;
-        if (L == n) max = Math.max(max, sum);
+    public static void DFS(int L, int sum) {
+        if (sum > C) return;
+        if (L == N) answer = Math.max(answer, sum);
         else {
-            dfs(L + 1, sum + arr[L], arr);
-            dfs(L + 1, sum, arr);
+            DFS(L + 1, sum + arr[L]);
+            DFS(L + 1, sum);
         }
     }
 
     public static void main(String[] args) {
         Scanner kb = new Scanner(System.in);
-        c = kb.nextInt();
-        n = kb.nextInt();
-        int[] arr = new int[n];
-        for (int i = 0; i < n; i++) arr[i] = kb.nextInt();
-        dfs(0,0,arr);
-        System.out.println(max);
+        C = kb.nextInt();
+        N = kb.nextInt();
+        arr = new int[N];
+        for (int i = 0; i < N; i++) arr[i] = kb.nextInt();
+        DFS(0, 0);
+        System.out.println(answer);
     }
 }

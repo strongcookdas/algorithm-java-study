@@ -7,30 +7,29 @@ package algorithm.dfs.inflearn;
     - L이 m일 경우
  */
 
-import java.util.*;
+import java.util.Scanner;
 
 public class 중복순열 {
-    static int n;
-    static int m;
-    static int[] arr;
-
-    public static void DFS(int L) {
-        if (L == m) {
-            for (int i : arr) System.out.print(i + " ");
+    static int N,M;
+    static int[] answer;
+    public static void DFS(int L){
+        if(L==M) {
+            for(int n : answer) {
+                System.out.print(n+" ");
+            }
             System.out.println();
-            return;
-        }
-        for (int i = 1; i <= n; i++) {
-            arr[L] = i;
-            DFS(L + 1);
+        }else{
+            for(int i = 1; i<=N; i++){
+                answer[L] = i;
+                DFS(L+1);
+            }
         }
     }
-
     public static void main(String[] args) {
         Scanner kb = new Scanner(System.in);
-        n = kb.nextInt();
-        m = kb.nextInt();
-        arr = new int[m];
+        N = kb.nextInt();
+        M = kb.nextInt();
+        answer = new int[M];
         DFS(0);
     }
 }

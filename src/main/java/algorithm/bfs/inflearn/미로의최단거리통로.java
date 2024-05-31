@@ -12,39 +12,40 @@ class Point {
 }
 
 public class 미로의최단거리통로 {
-    static int answer = Integer.MAX_VALUE;
-    static int[] dx = {0, 0, -1, 1};
-    static int[] dy = {-1, 1, 0, 0};
-    static int[][] board, dis;
+    static Queue<Point> Q;
+    static int[][] board;
+    static int[] dx = {0, 1, 0, -1}, dy = {-1, 0, 1, 0};
+    static int N = 7;
 
-    public static void BFS(int x, int y) {
-        Queue<Point> Q = new LinkedList<>();
-        Q.offer(new Point(x, y));
-        board[x][y] = 1;
+    public static int BFS() {
+        int answer = 0;
+        Q.offer(new Point(1, 1));
+        board[1][1] = 1;
         while (!Q.isEmpty()) {
-            Point tmp = Q.poll();
-            for (int i = 0; i < 4; i++) {
-                int nx = tmp.x + dx[i];
-                int ny = tmp.y + dy[i];
-                if (nx >= 1 && nx <= 7 && ny >= 1 && ny <= 7 && board[nx][ny] == 0) {
-                    board[nx][ny] = 1;
-                    Q.offer(new Point(nx, ny));
-                    dis[nx][ny] = dis[tmp.x][tmp.y] + 1;
+            int n = Q.size();
+            for (int i = 0; i < n; i++) {
+                Point tmp = Q.poll();
+                if (tmp.x == N && tmp.y == N) return answer;
+                for (int j = 0; j < dx.length; j++) {
+                    int nx = tmp.x + dx[j];
+                    int ny = tmp.y + dy[j];
+                    if (nx > 0 && nx <= N && ny > 0 && ny <= N && board[ny][nx] == 0) {
+                        board[ny][nx] = 1;
+                        Q.offer(new Point(nx, ny));
+                    }
                 }
             }
+            answer++;
         }
+        return -1;
     }
 
     public static void main(String[] args) {
         Scanner kb = new Scanner(System.in);
-        board = new int[8][8];
-        dis = new int[8][8];
-        for (int i = 1; i <= 7; i++) {
-            for (int j = 1; j <= 7; j++) board[i][j] = kb.nextInt();
-        }
-        BFS(1, 1);
-        if (dis[7][7] == 0) System.out.println(-1);
-        else System.out.println(dis[7][7]);
+        board = new int[N + 1][N + 1];
+        Q = new LinkedList<>();
+        for (int i = 1; i <= N; i++)
+            for (int j = 1; j <= N; j++) board[i][j] = kb.nextInt();
+        System.out.println(BFS());
     }
-
 }

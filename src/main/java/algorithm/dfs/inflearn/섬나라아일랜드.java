@@ -14,7 +14,7 @@ package algorithm.dfs.inflearn;
 5. 2번 반복
  */
 
-import java.util.*;
+import java.util.Scanner;
 
 class Point {
     int x, y;
@@ -26,42 +26,38 @@ class Point {
 }
 
 public class 섬나라아일랜드 {
-    static int n, answer = 0;
-    static int[][] board;
-    static int[] dx = {-1, 0, 1, 1, 1, 0, -1, -1};
-    static int[] dy = {-1, -1, -1, 0, 1, 1, 1, 0};
-    static boolean flag = false;
+    static int N, answer=0;
+    static int[] dx = {0, 1, 1, 1, 0, -1, -1, -1, 0}, dy = {-1, -1, 0, 1, 1, 1, 0, -1};
+    static int[][] map;
 
-    public static void DFS(Point p) {
-        if (board[p.y][p.x] != 1) return;
-        board[p.y][p.x] = 0;
-        for (int i = 0; i < 8; i++) {
-            int nx = p.x + dx[i];
-            int ny = p.y + dy[i];
-            if (nx < 0 || nx >= n || ny < 0 || ny >= n || board[ny][nx] != 1) continue;
-            DFS(new Point(nx, ny));
-        }
-    }
-
-    public static void solution() {
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (board[i][j] == 1) {
-                    answer++;
-                    DFS(new Point(j, i));
-                }
+    public static void DFS(int x, int y) {
+        if(x>=0 && x<N && y>=0 && y<N && map[y][x]==1){
+            map[y][x] = 0;
+            for (int i = 0; i < 8; i++) {
+                int nx = x + dx[i];
+                int ny = y + dy[i];
+                DFS(nx,ny);
             }
         }
     }
 
     public static void main(String[] args) {
         Scanner kb = new Scanner(System.in);
-        n = kb.nextInt();
-        board = new int[n][n];
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) board[i][j] = kb.nextInt();
+        N = kb.nextInt();
+        map = new int[N][N];
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                map[i][j] = kb.nextInt();
+            }
         }
-        solution();
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if(map[i][j] == 1) {
+                    answer++;
+                    DFS(j, i);
+                }
+            }
+        }
         System.out.println(answer);
     }
 }

@@ -1,34 +1,41 @@
 package algorithm.two_pointer.inflearn;
 
+/*
+- sort를 사용하지 않고 투 포인터로 O(n)으로 끝낸다.
+ */
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
-
 public class 두배열합치기 {
-    public static ArrayList<Integer> solution(int n, int m, int[] arr1, int[] arr2) {
-        ArrayList<Integer> answer = new ArrayList<>();
-        int p1 = 0, p2 = 0;
-        while (p1 < n && p2 < m) {
-            if (arr1[p1] < arr2[p2]) answer.add(arr1[p1++]);
-            else answer.add(arr2[p2++]);
+    int[] answer;
+    public void solution(int[] arr1, int[] arr2){
+        int t1 = 0, t2 = 0, idx = 0;
+        answer = new int[arr1.length+arr2.length];
+        while(t1 < arr1.length && t2 < arr2.length){
+            if(arr1[t1]< arr2[t2]) answer[idx++] = arr1[t1++];
+            else answer[idx++] = arr2[t2++];
         }
-        while (p1 < n) answer.add(arr1[p1++]);
-        while (p2 < m) answer.add(arr2[p2++]);
-        return answer;
+        while(t1<arr1.length) answer[idx++] = arr1[t1++];
+        while(t2<arr2.length) answer[idx++] = arr2[t2++];
     }
+    public static void main(String[] args) throws IOException {
+        두배열합치기 main = new 두배열합치기();
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
-        int[] arr1 = new int[n];
-        for (int i = 0; i < n; i++) {
-            arr1[i] = scanner.nextInt();
-        }
-        int m = scanner.nextInt();
-        int[] arr2 = new int[m];
-        for (int i = 0; i < m; i++) {
-            arr2[i] = scanner.nextInt();
-        }
-        for (Integer i : solution(n, m, arr1, arr2)) {
-            System.out.print(i + " ");
-        }
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        int N = Integer.parseInt(st.nextToken());
+        int[] arr1 = new int[N];
+        st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < N; i++) arr1[i] = Integer.parseInt(st.nextToken());
+
+        int M = Integer.parseInt(br.readLine());
+        int[] arr2 = new int[M];
+        st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < M; i++) arr2[i] = Integer.parseInt(st.nextToken());
+
+        main.solution(arr1, arr2);
+        for(int n : main.answer) System.out.print(n+" ");
     }
 }

@@ -2,22 +2,22 @@ package algorithm.two_pointer.inflearn;
 
 import java.util.*;
 public class 연속된자연수의합 {
-    public static int solution(int n){
-        int answer = 0;
-        int sum = 0;
-        int lt = 1, rt = 1;
-        while(lt+rt<=(n+1)){
-            if(sum == n){
-                answer++;
-                sum-=(lt++);
-            }else if(sum > n) sum -= lt++;
-            else sum+=rt++;
+    public int solution(int N){
+        int lt = 1, sum = 0, answer = 0;
+        for(int rt = 1; rt<=(N/2)+N%2; rt++){
+            if(sum < N) sum += rt;
+            if(sum==N) answer++;
+            while(sum >= N){
+                sum -= lt++;
+                if(sum == N) answer++;
+            }
         }
         return answer;
     }
-
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println(solution(scanner.nextInt()));
+        연속된자연수의합 main = new 연속된자연수의합();
+        Scanner kb = new Scanner(System.in);
+        int N = kb.nextInt();
+        System.out.println(main.solution(N));
     }
 }

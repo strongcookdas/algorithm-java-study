@@ -3,32 +3,29 @@ package algorithm.set.inflearn;
 import java.util.*;
 
 public class K번째큰수 { // 다시 풀기
-    public static int solution(int n, int k, int[] arr) {
-        int answer = -1;
+    public int solution(int N, int K, int[] arr){
         TreeSet<Integer> set = new TreeSet<>(Collections.reverseOrder());
-        for (int i = 0; i < n; i++) {
-            for (int j = i + 1; j < n; j++) {
-                for (int z = j + 1; z < n; z++) {
-                    set.add(arr[i] + arr[j] + arr[z]);
+        for(int i = 0; i<N; i++){
+            for(int j = i+1; j<N; j++){
+                for(int k = j+1; k<N; k++){
+                    set.add(arr[i]+arr[j]+arr[k]);
                 }
             }
         }
-        int count = 0;
-        for (int i : set) {
+        int count = 1;
+        for(int num : set){
+            if(count==K) return num;
             count++;
-            if (count == k) return i;
         }
-        return answer;
+        return -1;
     }
-
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
-        int k = scanner.nextInt();
-        int[] arr = new int[n];
-        for (int i = 0; i < n; i++) {
-            arr[i] = scanner.nextInt();
-        }
-        System.out.println(solution(n, k, arr));
+        Scanner kb = new Scanner(System.in);
+        K번째큰수 main = new K번째큰수();
+        int N = kb.nextInt();
+        int K = kb.nextInt();
+        int[] arr = new int[N];
+        for(int i = 0; i<N; i++) arr[i] = kb.nextInt();
+        System.out.println(main.solution(N,K,arr));;
     }
 }

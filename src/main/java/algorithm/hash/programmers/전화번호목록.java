@@ -8,6 +8,8 @@ package algorithm.hash.programmers;
  *      - 번호 길이는 1~20 사이 모든 경우를 체크
  *      - 있다면 false 리턴
  *      - 없다면 true 리턴
+ * String 배열을 특별한 기준 없이 정렬할 경우 사전순으로 정렬됨다.
+ * 이를 활용하면 해시맵을 사용하지 않고도 풀 수 있다.
  */
 
 import java.util.*;
@@ -27,3 +29,17 @@ public class 전화번호목록 {
         return true;
     }
 }
+
+/*
+import java.util.*;
+
+class Solution {
+    public boolean solution(String[] phone_book) {
+        Arrays.sort(phone_book);
+        for(int i = 0; i<phone_book.length-1; i++){
+            if(phone_book[i+1].startsWith(phone_book[i])) return false;
+        }
+        return true;
+    }
+}
+ */

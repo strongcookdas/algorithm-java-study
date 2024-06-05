@@ -9,6 +9,7 @@
     - substring(int index, int index) 문자열 자르기
     - substring(int index) 시작점부터 끝까지 문자열 자르기
     - split() 문자열 자르기 return String[] 
+    - startsWith() 특정 문자열로 시작되는지 체크
 - StringBuilder
     - reverse() 문자열 뒤집기
     - append(String s) 객체 생성하지 않고 문자열 이어붙이기

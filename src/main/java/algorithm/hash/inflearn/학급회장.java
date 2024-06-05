@@ -1,28 +1,30 @@
 package algorithm.hash.inflearn;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Scanner;
 
 public class 학급회장 {
-    public static char solution(int n, String str) {
-        char answer = ' ';
+    public void solution(int n, String str){
         HashMap<Character, Integer> map = new HashMap<>();
-        for (char x : str.toCharArray()) {
-            map.put(x, map.getOrDefault(x, 0) + 1);
+        for(int i = 0; i<n; i++){
+            map.put(str.charAt(i),map.getOrDefault(str.charAt(i),0)+1);
         }
         int max = Integer.MIN_VALUE;
-        for (char key : map.keySet()) {
+        Character st='A';
+        for(Character key : map.keySet()){
             if(map.get(key)>max){
-                answer = key;
                 max = map.get(key);
+                st = key;
             }
         }
-        return answer;
+        System.out.println(st);
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
-        String str = scanner.next();
-        System.out.println(solution(n,str));
+        Scanner kb = new Scanner(System.in);
+        학급회장 main = new 학급회장();
+        int n = kb.nextInt();
+        kb.nextLine();
+        main.solution(n, kb.nextLine());
     }
 }

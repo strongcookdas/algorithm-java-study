@@ -17,9 +17,19 @@ public class 올바른괄호 {
         return answer;
     }
 
+    public static String solution2(String str) {
+        int sum = 0;
+        for (char c : str.toCharArray()) {
+            if (c == '(') sum++;
+            if (c == ')') sum--;
+            if (sum < 0) return "NO";
+        }
+        return (sum == 0) ? "YES" : "NO";
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String str = scanner.nextLine();
-        System.out.println(solution(str));
+        System.out.println(solution2(str));
     }
 }

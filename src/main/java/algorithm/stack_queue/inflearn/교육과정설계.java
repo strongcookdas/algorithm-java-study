@@ -17,8 +17,8 @@ public class 교육과정설계 {
             eSubjects.offer(c);
         }
         for (int i = 0; i < t.length(); i++) {
-            if(eSubjects.contains(t.charAt(i))){
-                if(eSubjects.peek() == t.charAt(i)) eSubjects.poll();
+            if (eSubjects.contains(t.charAt(i))) {
+                if (eSubjects.peek() == t.charAt(i)) eSubjects.poll();
                 else return "NO";
             }
         }
@@ -26,8 +26,19 @@ public class 교육과정설계 {
         return "YES";
     }
 
+    public static String solution2(String s, String t) {//큐 사용 x
+        int idx = 0;
+        for (int i = 0; i < t.length(); i++) {
+            if (s.indexOf(t.charAt(i)) != -1) {
+                if (s.charAt(idx) != t.charAt(i)) return "NO";
+                else idx++;
+            }
+        }
+        return (idx == s.length()) ? "YES" : "NO";
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println(solution(scanner.nextLine(), scanner.nextLine()));
+        System.out.println(solution2(scanner.nextLine(), scanner.nextLine()));
     }
 }

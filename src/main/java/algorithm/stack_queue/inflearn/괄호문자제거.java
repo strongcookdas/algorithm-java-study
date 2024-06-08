@@ -2,7 +2,7 @@ package algorithm.stack_queue.inflearn;
 
 import java.util.*;
 
-public class Main {
+public class 괄호문자제거 {
     public static String solution(String str){
         StringBuilder sb = new StringBuilder("");
         Stack<Character> stack = new Stack<>();

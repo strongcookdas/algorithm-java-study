@@ -4,20 +4,18 @@ import java.util.*;
 
 public class 후위식연산 {
     public static int solution(String str) {
-        int answer = 0;
         Stack<Integer> stack = new Stack<>();
-        for (char x : str.toCharArray()) {
-            if (Character.isDigit(x)) stack.push(x - '0');
-            else {
-                int rt = stack.pop();
-                int lt = stack.pop();
-                if (x == '+') stack.push(lt + rt);
-                else if (x == '-') stack.push(lt - rt);
-                else if (x == '*') stack.push(lt * rt);
-                else if (x == '/') stack.push(lt / rt);
-            }
+        for (char c : str.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                int operand2 = stack.pop();
+                int operand1 = stack.pop();
+                if (c == '+') stack.push(operand1 + operand2);
+                if (c == '-') stack.push(operand1 - operand2);
+                if (c == '*') stack.push(operand1 * operand2);
+                if (c == '/') stack.push(operand1 / operand2);
+            } else stack.push(c - '0');
         }
-        return stack.get(0);
+        return stack.pop();
     }
 
     public static void main(String[] args) {

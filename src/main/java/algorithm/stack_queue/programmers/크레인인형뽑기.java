@@ -1,23 +1,22 @@
 package algorithm.stack_queue.programmers;
 
 import java.util.*;
+
 public class 크레인인형뽑기 {
-    public static int solution(int[][] board, int[] moves) {
-        int answer = 0;
-        int n = board.length;
+    public static int solution(int[][] board, int[] move) {
+        int count = 0;
         Stack<Integer> buket = new Stack<>();
-        for (int i = 0; i < moves.length; i++) {
-            int top = board.length;
-            while (top > 1 && board[n - top][moves[i] - 1] == 0) top--;
-            int tmp = board[n - top][moves[i] - 1];
-            board[n - top][moves[i] - 1] = 0;
-            if (tmp == 0) continue;
-            if (!buket.isEmpty() && buket.peek() == tmp) {
+        for (int m : move) {
+            int idx = 0;
+            int temp = 0;
+            while (idx != board.length && (temp = board[idx][m - 1]) == 0) ++idx;
+            if (idx < board.length) board[idx][m - 1] = 0;
+            if (temp != 0 && !buket.isEmpty() && buket.peek() == temp) {
+                count += 2;
                 buket.pop();
-                answer+=2;
-            } else buket.push(tmp);
+            } else buket.push(temp);
         }
-        return answer;
+        return count;
     }
 
     public static void main(String[] args) {

@@ -2,23 +2,21 @@ package algorithm.stack_queue.inflearn;
 
 import java.util.*;
 
-public class 공주구하기 {//다시 풀기, 문제 좀 잘 좀 읽자;;;;
+public class 공주구하기 {
     public static int solution(int n, int k) {
-        Queue<Integer> queue = new LinkedList<>();
-        int count = 1;
-        for (int i = 1; i <= n; i++) {
-            queue.offer(i);
-        }
-        while (queue.size() != 1) {
-            if (count == k) {
-                queue.poll();
-                count = 1;
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 1; i <= n; i++) q.offer(i);
+        int cnt = 1;
+        while (q.size() > 1) {
+            if (cnt == k) {
+                q.poll();
+                cnt = 1;
             } else {
-                queue.offer(queue.poll());
-                count++;
+                q.offer(q.poll());
+                cnt++;
             }
         }
-        return queue.peek();
+        return q.poll();
     }
 
     public static void main(String[] args) {

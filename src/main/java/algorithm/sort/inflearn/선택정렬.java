@@ -3,28 +3,25 @@ package algorithm.sort.inflearn;
 import java.util.*;
 
 public class 선택정렬 {
-    public static int[] solution(int n, int[] arr) {
-        for (int i = 0; i < n; i++) {
+    public void solution(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
             int minIdx = i;
-            for (int j = i; j < n; j++) {
+            for (int j = i; j < arr.length; j++) {
                 if (arr[j] < arr[minIdx]) minIdx = j;
             }
             int tmp = arr[i];
             arr[i] = arr[minIdx];
             arr[minIdx] = tmp;
         }
-        return arr;
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
-        int[] arr = new int[n];
-        for (int i = 0; i < n; i++) {
-            arr[i] = scanner.nextInt();
-        }
-        for (int i : solution(n, arr)) {
-            System.out.print(i + " ");
-        }
+        Scanner kb = new Scanner(System.in);
+        int N = kb.nextInt();
+        int[] arr = new int[N];
+        for (int i = 0; i < N; i++) arr[i] = kb.nextInt();
+        선택정렬 main = new 선택정렬();
+        main.solution(arr);
+        for (int n : arr) System.out.print(n + " ");
     }
 }

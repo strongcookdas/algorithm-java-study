@@ -1,23 +1,28 @@
 package algorithm.sort.inflearn;
+/**
+ * 캐시 히트일 경우
+ * 맨 앞으로 이동 후 나머지는 뒤로
+ * 캐시 미스일 경우
+ * 맨 앞에 추가 후 나머지 뒤로 이동
+ */
 
 import java.util.*;
 
-public class LRU { // 자료구조 사용하지 않고 일반 배열 사용, 나중에 일반 배열로 다시 풀기
+public class LRU {
     public static int[] solution(int n, int m, int[] arr) {
         int[] answer = new int[n];
-        for (int x : arr) {
-            int pos = -1;
-            for (int i = 0; i < n; i++) if (x == answer[i]) pos = i;
-            if (pos == -1) {
-                for (int i = n - 1; i >= 1; i--) {
-                    answer[i] = answer[i - 1];
-                }
-            } else {
-                for (int i = pos; i >= 1; i--) {
-                    answer[i] = answer[i - 1];
-                }
+        for (int num : arr) {
+            int hit;
+            for (hit = 0; hit < n; hit++) {
+                if (answer[hit] == num || answer[hit] == 0) break;
             }
-            answer[0] = x;
+            if (hit == answer.length) answer[--hit] = num;
+            else if (answer[hit] != num) answer[hit] = num;
+            for (int i = hit; i > 0; i--) {
+                int temp = answer[i - 1];
+                answer[i - 1] = answer[i];
+                answer[i] = temp;
+            }
         }
         return answer;
     }

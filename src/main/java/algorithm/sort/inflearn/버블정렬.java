@@ -3,13 +3,14 @@ package algorithm.sort.inflearn;
 import java.util.*;
 
 public class 버블정렬 {
-    public static int[] solution(int n, int[] arr) {
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n - i - 1; j++) {
-                if (arr[j] > arr[j + 1]) {
-                    int tmp = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = tmp;
+
+    public static int[] solution(int[] arr) {
+        for (int i = arr.length; i > 0; i--) {
+            for (int j = 1; j < i; j++) {
+                if (arr[j] < arr[j - 1]) {
+                    int tmp = arr[j - 1];
+                    arr[j - 1] = arr[j];
+                    arr[j] = tmp;
                 }
             }
         }
@@ -23,7 +24,7 @@ public class 버블정렬 {
         for (int i = 0; i < n; i++) {
             arr[i] = scanner.nextInt();
         }
-        for (int i : solution(n, arr)) {
+        for (int i : solution(arr)) {
             System.out.print(i + " ");
         }
     }

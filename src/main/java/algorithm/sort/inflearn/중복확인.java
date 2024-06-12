@@ -3,13 +3,13 @@ package algorithm.sort.inflearn;
 import java.util.*;
 
 public class 중복확인 {
+
     public static String solution(int n, int[] arr) {
-        String answer = "U";
         Arrays.sort(arr);
-        for (int i = 1; i < n; i++) {
+        for (int i = 1; i < arr.length; i++) {
             if (arr[i - 1] == arr[i]) return "D";
         }
-        return answer;
+        return "U";
     }
 
     public static void main(String[] argus) {

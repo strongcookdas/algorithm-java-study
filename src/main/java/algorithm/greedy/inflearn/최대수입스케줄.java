@@ -1,46 +1,41 @@
 package algorithm.greedy.inflearn;
 
+// 기준일을 기준으로 내림차순 정렬
+// Priority 큐 사용
+
 import java.util.*;
 
-class Lecture implements Comparable<Lecture> {
-    int pay;
-    int limit;
-
-    public Lecture(int pay, int limit) {
-        this.pay = pay;
-        this.limit = limit;
-    }
-
-    @Override
-    public int compareTo(Lecture o) {
-        return o.limit - this.limit; // 내림차순
-    }
-}
-
 public class 최대수입스케줄 {
-    static ArrayList<Lecture> arr = new ArrayList<>();
-    static PriorityQueue<Integer> pQ = new PriorityQueue<>(Collections.reverseOrder());
-    static int answer = 0, limitMax = Integer.MIN_VALUE;
-
-    public static void solution() {
-        Collections.sort(arr);
-        int idx = 0;
-        for (int i = limitMax; i > 0; i--) {
-            while (idx < arr.size() && arr.get(idx).limit == i) pQ.offer(arr.get(idx++).pay);
-            if (!pQ.isEmpty()) answer += pQ.poll();
-        }
-    }
-
     public static void main(String[] args) {
         Scanner kb = new Scanner(System.in);
-        int n = kb.nextInt();
-        for (int i = 0; i < n; i++) {
-            int pay = kb.nextInt();
-            int limit = kb.nextInt();
-            arr.add(new Lecture(pay, limit));
-            limitMax = Math.max(limitMax, limit);
+        int N = kb.nextInt();
+        int[][] arr = new int[N][2];
+        int days = -1;
+        for (int i = 0; i < N; i++) {
+            arr[i][0] = kb.nextInt();
+            arr[i][1] = kb.nextInt();
+            days = Math.max(days, arr[i][1]);
         }
-        solution();
-        System.out.println(answer);
+
+        최대수입스케줄 main = new 최대수입스케줄();
+        System.out.println(main.solution(arr, days));
+    }
+
+    private int solution(int[][] arr, int days) {
+        Arrays.sort(arr, (a, b) -> b[1] - a[1]);
+
+        PriorityQueue<Integer> q = new PriorityQueue<>(Collections.reverseOrder());
+
+        int idx = 0;
+        int answer = 0;
+        for (int i = days; i >= 1; i--) {
+            while (idx < arr.length && arr[idx][1] == i) {
+                q.offer(arr[idx++][0]);
+            }
+            if (!q.isEmpty()) {
+                answer += q.poll();
+            }
+        }
+        return answer;
     }
 }

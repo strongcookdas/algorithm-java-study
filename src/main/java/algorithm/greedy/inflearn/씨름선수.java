@@ -1,53 +1,50 @@
 package algorithm.greedy.inflearn;
-/*
-1. 이중 for문으로 풀면 시간 초과
-2. 키순으로 정렬 후 내 앞사람보다 몸무게가 크면 그 사람 카운트
-3. 몸무게가 앞사람보다 적게 나가면 키와 몸무게가 자신보다 큰 사람이 있다는 의미
-4. 1개의 for문으로 풀어야 한다. (전 방법으로 푼 것은 원래 시간초과가 났어야 했다.)
- */
+// 키가 큰 순서로 정렬
+// 키가 같다면 몸무게가 많이 나가는 순으로 정렬
+// FOR로 순회하면서 몸무게의 MAX값을 변경해가면서 MAX값보다 몸무게 많이 나가면 COUNT
+// 몸무게로 결정하는 이유 키 순으로 정렬되어 있기 때문
+// O(n)으로 해결
 
 import java.util.*;
 
-class Player implements Comparable<Player> {
-    int height;
-    int weight;
-
-    public Player(int height, int weight) {
-        this.height = height;
-        this.weight = weight;
-    }
-
-    @Override
-    public int compareTo(Player o) {
-        if (this.height == o.height) return o.weight - this.weight;
-        else return o.height - this.height;
-    }
-}
-
 public class 씨름선수 {
-    static int n, answer = 1;
-    static ArrayList<Player> players = new ArrayList<>();
+    static class Player {
+        int height;
+        int weight;
 
-    public static void solution() {
-        int max = Integer.MIN_VALUE;
-        for (int i = 0; i < n; i++) {
-            if (i == 0) {
-                max = players.get(i).weight;
-                continue;
-            }
-            if (players.get(i).weight > max) {
-                max = players.get(i).weight;
-                answer++;
-            }
+        public Player(int height, int weight) {
+            this.height = height;
+            this.weight = weight;
         }
     }
 
     public static void main(String[] args) {
         Scanner kb = new Scanner(System.in);
-        n = kb.nextInt();
-        for (int i = 0; i < n; i++) players.add(new Player(kb.nextInt(), kb.nextInt()));
-        Collections.sort(players);
-        solution();
-        System.out.println(answer);
+        int N = kb.nextInt();
+        Player[] arr = new Player[N];
+        for (int i = 0; i < N; i++) {
+            arr[i] = new Player(kb.nextInt(), kb.nextInt());
+        }
+
+        씨름선수 main = new 씨름선수();
+        System.out.println(main.solution(arr));
+    }
+
+    private int solution(Player[] arr) {
+        Arrays.sort(arr, (a, b) -> {
+            if (a.height == b.height) {
+                return b.weight - a.weight;
+            }
+            return b.height - a.height;
+        });
+        int weightMax = Integer.MIN_VALUE;
+        int count = 0;
+        for (Player p : arr) {
+            if (p.weight >= weightMax) {
+                count++;
+                weightMax = p.weight;
+            }
+        }
+        return count;
     }
 }

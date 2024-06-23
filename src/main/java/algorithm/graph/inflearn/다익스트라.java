@@ -1,4 +1,4 @@
-package algorithm.greedy.inflearn;
+package algorithm.graph.inflearn;
 
 import java.util.*;
 

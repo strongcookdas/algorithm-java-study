@@ -18,6 +18,8 @@
     - 가중치가 음수일 경우에는 사용할 수 없다.
     - n이 노드의 개수, e가 간선의 개수라면 O(e*n)
         - PriorityQueue 사용하면 O(ElonN)으로 해결
+    - 참고
+        - https://great-park.tistory.com/133
 - Union & Find
     - 노드가 특정 그래프의 노드인지 아닌지 구분할 때 사용
 - DP

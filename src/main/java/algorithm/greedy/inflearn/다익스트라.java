@@ -2,64 +2,76 @@ package algorithm.greedy.inflearn;
 
 import java.util.*;
 
-class Node implements Comparable<Edge> {
-    public int vex;
-    public int cost;
-
-    public Node(int vex, int cost) {
-        this.vex = vex;
-        this.cost = cost;
-    }
-
-    @Override
-    public int compareTo(Edge ob) {
-        return this.cost - ob.cost;
-    }
-}
-
 public class 다익스트라 {
-    static int n, m;
-    static ArrayList<ArrayList<City>> graph;
-    static int[] dis;
+    static class Edge implements Comparable<Edge> {
+        int node;
+        int cost;
 
-    public static void solution(int v) {
-        PriorityQueue<City> pQ = new PriorityQueue<>();
-        pQ.offer(new City(v, 0));
-        dis[v] = 0;
-        while (!pQ.isEmpty()) {
-            City tmp = pQ.poll();
-            int now = tmp.vex;
-            int nowCost = tmp.cost;
-            if (nowCost > dis[now]) continue;
-            for (City ob : graph.get(now)) {
-                if (dis[ob.vex] > nowCost + ob.cost) {
-                    dis[ob.vex] = nowCost + ob.cost;
-                    pQ.offer(new City(ob.vex, nowCost + ob.cost));
-                }
-            }
+        public Edge(int node, int cost) {
+            this.node = node;
+            this.cost = cost;
+        }
+
+        @Override
+        public int compareTo(Edge o) {
+            return this.cost - o.cost;
         }
     }
+
+    static int N, M;
+    static int[] dis;
+    static ArrayList<ArrayList<Edge>> graph = new ArrayList<>();
 
     public static void main(String[] args) {
         Scanner kb = new Scanner(System.in);
-        n = kb.nextInt();
-        m = kb.nextInt();
-        graph = new ArrayList<ArrayList<City>>();
-        for (int i = 0; i <= n; i++) {
-            graph.add(new ArrayList<City>());
-        }
-        dis = new int[n + 1];
+        N = kb.nextInt();
+        M = kb.nextInt();
+        dis = new int[N + 1];
         Arrays.fill(dis, Integer.MAX_VALUE);
-        for (int i = 0; i < m; i++) {
-            int a = kb.nextInt();
-            int b = kb.nextInt();
+        for (int i = 0; i <= N; i++) {
+            graph.add(new ArrayList<>());
+        }
+
+        for (int i = 0; i < M; i++) {
+            int s = kb.nextInt();
+            int d = kb.nextInt();
             int c = kb.nextInt();
-            graph.get(a).add(new City(b, c));
+            graph.get(s).add(new Edge(d, c));
         }
-        solution(1);
-        for (int i = 2; i <= n; i++) {
-            if (dis[i] != Integer.MAX_VALUE) System.out.println(i + " : " + dis[i]);
-            else System.out.println(i + " : impossible");
+
+        ArrayList<Integer> answer = solution();
+        for (int i = 2; i <= N; i++) {
+            if (answer.get(i) == Integer.MAX_VALUE) {
+                System.out.println(i + " : impossible");
+                continue;
+            }
+            System.out.println(i + " : " + answer.get(i));
         }
+
+    }
+
+    private static ArrayList<Integer> solution() {
+        PriorityQueue<Edge> pQ = new PriorityQueue<>();
+        dis[1] = 0;
+        pQ.offer(new Edge(1, 0));
+        while (!pQ.isEmpty()) {
+            Edge tmp = pQ.poll();
+            int now = tmp.node;
+            int nowCost = tmp.cost;
+            if (nowCost > dis[now]) {
+                continue;
+            }
+            for (Edge e : graph.get(now)) {
+                if (nowCost + e.cost < dis[e.node]) {
+                    dis[e.node] = nowCost + e.cost;
+                    pQ.offer(new Edge(e.node, dis[e.node]));
+                }
+            }
+        }
+        ArrayList<Integer> answer = new ArrayList<>();
+        for (int i : dis) {
+            answer.add(i);
+        }
+        return answer;
     }
 }

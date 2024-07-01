@@ -3,28 +3,31 @@ package algorithm.dynamic.inflearn;
 import java.util.*;
 
 public class 최대부분증가수열 {
-    static int[] dy;
-
-    public static int solution(int[] arr) {
-        int answer = 0;
-        dy[0] = 1;
-        for (int i = 1; i < arr.length; i++) {
-            int max = 0;
-            for (int j = i - 1; j >= 0; j--) {
-                if (arr[j] < arr[i] && dy[j] > max) max = dy[j];
-            }
-            dy[i] = max + 1;
-            answer = Math.max(answer, dy[i]);
-        }
-        return answer;
-    }
+    static int[] arr;
+    static int[] dp;
 
     public static void main(String[] args) {
         Scanner kb = new Scanner(System.in);
-        int n = kb.nextInt();
-        int[] arr = new int[n];
-        dy = new int[n];
-        for (int i = 0; i < n; i++) arr[i] = kb.nextInt();
-        System.out.println(solution(arr));
+        int N = kb.nextInt();
+        arr = new int[N];
+        dp = new int[N];
+        Arrays.fill(dp, 1);
+        for (int i = 0; i < N; i++) {
+            arr[i] = kb.nextInt();
+        }
+        System.out.println(solution());
+    }
+
+    public static int solution() {
+        int answer = 0;
+        for (int i = 1; i < arr.length; i++) {
+            for (int j = 0; j < i; j++) {
+                if (arr[i] > arr[j] && dp[j] + 1 > dp[i]) {
+                    dp[i] = dp[j] + 1;
+                }
+            }
+            answer = Math.max(answer, dp[i]);
+        }
+        return answer;
     }
 }

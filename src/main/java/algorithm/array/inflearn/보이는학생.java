@@ -4,15 +4,15 @@ import java.util.*;
 
 public class 보이는학생 {
     public static int solution(int[] arr) {
-        int max = arr[0];
-        int count = 1;
-        for (int i = 1; i < arr.length; i++) {
+        int max = Integer.MIN_VALUE;
+        int answer = 0;
+        for (int i = 0; i < arr.length; i++) {
             if (arr[i] > max) {
-                count++;
+                answer++;
                 max = arr[i];
             }
         }
-        return count;
+        return answer;
     }
 
     public static void main(String[] args) {

@@ -4,23 +4,33 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class 뒤집은소수 {
-    public static boolean isPrime(int num){
-        if(num==1) return false;
-        for(int i=2; i<num; i++){
-            if(num%i==0) return false;
-        }
-        return true;
-    }
-    public static ArrayList<Integer> solution(int n, int[] arr) {
+    public static ArrayList<Integer> solution(int max, int[] arr) {
         ArrayList<Integer> answer = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            int tmp = arr[i];
-            int res = 0;
-            while(tmp>0){
-                res = res * 10 + (tmp%10);
-                tmp /= 10;
+        int[] prime = new int[max + 1];
+        prime[0] = 1;
+        prime[1] = 1;
+        for (int i = 2; i <= max; i++) {
+            if (prime[i] == 0) {
+                for (int j = i + i; j <= max; j += i) {
+                    prime[j] = 1;
+                }
             }
-            if(isPrime(res)) answer.add(res);
+        }
+
+        for (int input : arr) {
+            if (prime[input] == 0) {
+                answer.add(input);
+            }
+        }
+        return answer;
+    }
+
+    public static int reverseNum(int n) {
+        int answer = 0;
+        while (n > 0) {
+            answer *= 10;
+            answer += (n % 10);
+            n /= 10;
         }
         return answer;
     }
@@ -29,11 +39,16 @@ public class 뒤집은소수 {
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
         int[] arr = new int[n];
+        int max = Integer.MIN_VALUE;
+
         for (int i = 0; i < n; i++) {
-            arr[i] = scanner.nextInt();
+            arr[i] = reverseNum(scanner.nextInt());
+            max = Math.max(arr[i], max);
         }
-        for (Integer i : solution(n,arr)) {
-            System.out.print(i+" ");
+
+        ArrayList<Integer> answer = solution(max, arr);
+        for (Integer i : answer) {
+            System.out.print(i + " ");
         }
     }
 }

@@ -5,23 +5,22 @@ import java.util.*;
 public class 멘토링 {
     public static int solution(int n, int m, int[][] arr) {
         int answer = 0;
+        int[] ch = new int[n];
         for (int i = 0; i < n; i++) {
-            boolean[] flag = new boolean[n];
+            Arrays.fill(ch, 0);
             for (int j = 0; j < m; j++) {
-                boolean check = false;
                 for (int k = 0; k < n; k++) {
-                    if (arr[j][k] == (i + 1)) check = true;
-                    else {
-                        if (check) {
-                            if (j == 0) flag[arr[j][k] - 1] = true;
-                        } else {
-                            if (j != 0) flag[arr[j][k] - 1] = false;
-                        }
+                    if (arr[j][k] == i + 1) {
+                        ch[i] = 1;
+                        break;
                     }
+                    ch[arr[j][k] - 1] = 1;
                 }
             }
-            for (int k = 0; k < n; k++) {
-                if (flag[k]) answer++;
+            for (int j = 0; j < n; j++) {
+                if (ch[j] == 0) {
+                    answer++;
+                }
             }
         }
         return answer;

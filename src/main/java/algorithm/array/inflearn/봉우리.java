@@ -7,16 +7,20 @@ public class 봉우리 {
         int answer = 0;
         int[] dx = {1, -1, 0, 0};
         int[] dy = {0, 0, -1, 1};
-        for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= n; j++) {
-                boolean flag = true;
-                for (int k = 0; k < 4; k++) {
-                    if (arr[i][j] <= arr[i + dx[k]][j + dy[k]]) {
-                        flag = false;
-                        break;
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr.length; j++) {
+                int y = i, x = j;
+                int count = 0;
+                for (int k = 0; k < dx.length; k++) {
+                    int nx = x + dx[k];
+                    int ny = y + dy[k];
+                    if (nx >= 0 && nx < arr.length && ny >= 0 && ny < arr.length && arr[ny][nx] < arr[y][x]) {
+                        count++;
                     }
                 }
-                if (flag) answer++;
+                if (count == 4) {
+                    answer++;
+                }
             }
         }
         return answer;
@@ -31,6 +35,6 @@ public class 봉우리 {
                 arr[i][j] = scanner.nextInt();
             }
         }
-        System.out.println(solution(n,arr));
+        System.out.println(solution(n, arr));
     }
 }

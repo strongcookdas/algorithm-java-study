@@ -5,14 +5,13 @@ import java.util.Scanner;
 public class 에라토스테네스체 {
     public static int solution(int n) {
         int answer = 0;
-        int[] arr = new int[n+1];
+        int[] prime = new int[n + 1];
         for (int i = 2; i <= n; i++) {
-            if (arr[i] == 0) answer++;
-            else continue;
-            int idx = i;
-            while (idx <= n) {
-                arr[idx] = 1;
-                idx += i;
+            if (prime[i] == 0) {
+                answer++;
+                for (int j = i + i; j <= n; j += i) {
+                    prime[j] = 1;
+                }
             }
         }
         return answer;

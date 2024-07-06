@@ -8,12 +8,14 @@ import java.util.*;
 public class 동전교환 {
     static int[] dy;
     static int n, m;
+
     public static int solution(int[] coins) {
         Arrays.fill(dy, Integer.MAX_VALUE);
         dy[0] = 0;
-        for (int i = 0; i < n; i++) {
-            for (int j = coins[i]; j <= m; j++) {
-                dy[j] = Math.min(dy[j], dy[j - coins[i]] + 1);
+        for (int i = 0; i < coins.length; i++) {
+            int coin = coins[i];
+            for (int j = coin; j < dy.length; j++) {
+                dy[j] = Math.min(dy[j], dy[j - coin] + 1);
             }
         }
         return dy[m];
@@ -23,7 +25,9 @@ public class 동전교환 {
         Scanner kb = new Scanner(System.in);
         n = kb.nextInt();
         int[] coins = new int[n];
-        for (int i = 0; i < n; i++) coins[i] = kb.nextInt();
+        for (int i = 0; i < n; i++) {
+            coins[i] = kb.nextInt();
+        }
         m = kb.nextInt();
         dy = new int[m + 1];
         System.out.println(solution(coins));

@@ -5,23 +5,22 @@ import java.util.*;
 public class 격자판최대합 {
     public static int solution(int[][] arr) {
         int answer = 0;
-        int sum1, sum2;
         for (int i = 0; i < arr.length; i++) {
-            sum1 = sum2 = 0;
-            for (int j = 0; j < arr.length; j++) {
-                sum1 += arr[i][j];
-                sum2 += arr[j][i];
+            int row = 0, col = 0;
+            for (int j = 0; j < arr[i].length; j++) {
+                row += arr[i][j];
+                col += arr[j][i];
             }
-            answer = Math.max(answer, sum1);
-            answer = Math.max(answer, sum2);
+            answer = Math.max(Math.max(row, col), answer);
         }
-        sum1 = sum2 = 0;
+
+        int dg1 = 0, dg2 = 0;
         for (int i = 0; i < arr.length; i++) {
-            sum1 += arr[i][i];
-            sum2 += arr[i][arr.length - i - 1];
+            dg1 += arr[i][i];
+            dg2 += arr[i][arr.length - 1 - i];
         }
-        answer = Math.max(answer, sum1);
-        answer = Math.max(answer, sum2);
+        answer = Math.max(Math.max(dg1, dg2), answer);
+
         return answer;
     }
 

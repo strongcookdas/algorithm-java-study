@@ -5,14 +5,13 @@ import java.util.*;
 public class 점수계산 {
     public static int solution(int[] arr) {
         int answer = 0;
-        int count = 0;
+        int count = 1;
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] == 0) {
-                count = 0;
-                continue;
+                count = 1;
+            } else {
+                answer += count++;
             }
-            count++;
-            answer += count;
         }
         return answer;
     }

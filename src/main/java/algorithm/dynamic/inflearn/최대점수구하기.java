@@ -2,6 +2,7 @@ package algorithm.dynamic.inflearn;
 /*
 문제는 1번만 풀 수 있다는 점을 고려해야 한다.
  */
+
 import java.util.*;
 
 class Problem {
@@ -20,10 +21,11 @@ public class 최대점수구하기 {
 
     public static int solution(Problem[] arr) {
         Arrays.fill(dy, 0);
-        dy[0] = 0;
-        for (int i = 0; i < n; i++) {
-            for (int j = m; j >= arr[i].time; j--) {
-                dy[j] = Math.max(dy[j - arr[i].time] + arr[i].score, dy[j]);
+        for (int i = 0; i < arr.length; i++) {
+            int time = arr[i].time;
+            int score = arr[i].score;
+            for (int j = dy.length - 1; j >= time; j--) {
+                dy[j] = Math.max(dy[j], dy[j - time] + score);
             }
         }
         return dy[m];
@@ -35,7 +37,9 @@ public class 최대점수구하기 {
         Problem[] arr = new Problem[n];
         m = kb.nextInt();
         dy = new int[m + 1];
-        for (int i = 0; i < n; i++) arr[i] = new Problem(kb.nextInt(), kb.nextInt());
+        for (int i = 0; i < n; i++) {
+            arr[i] = new Problem(kb.nextInt(), kb.nextInt());
+        }
         System.out.println(solution(arr));
     }
 }

@@ -1,4 +1,4 @@
-package algorithm.graph.inflearn;
+package algorithm.dijkstra.inflearn;
 
 import java.util.*;
 

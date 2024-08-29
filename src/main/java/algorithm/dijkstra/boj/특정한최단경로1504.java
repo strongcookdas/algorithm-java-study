@@ -5,7 +5,6 @@ import java.io.*;
 
 // S -> A -> B -> D
 // S -> B -> A -> D
-// 둘의 거리를 비교
 public class 특정한최단경로1504 {
     static final int INF = 200000000;
 

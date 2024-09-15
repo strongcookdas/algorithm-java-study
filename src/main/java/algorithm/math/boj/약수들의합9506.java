@@ -1,18 +1,13 @@
 package algorithm.math.boj;
 
-// 쉬운 브론즈 문제용 클래스
-/**
- * 배수와 약수 5086 B3
- */
-
 import java.util.*;
 import java.io.*;
 
-public class Main {
+public class 약수들의합9506 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        Main main = new Main();
+        약수들의합9506 main = new 약수들의합9506();
         while (true) {
             int N = Integer.parseInt(br.readLine());
             if (N == -1) {

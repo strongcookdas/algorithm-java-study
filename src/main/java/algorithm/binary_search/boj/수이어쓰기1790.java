@@ -1,4 +1,4 @@
-package algorithm.brute_force.boj;
+package algorithm.binary_search.boj;
 
 import java.util.*;
 
@@ -18,7 +18,6 @@ public class 수이어쓰기1790 {
         int answer = -1;
         while (rt >= lt) {
             int mid = (lt + rt) / 2;
-            System.out.println(mid);
             int num = isNumber(mid, K);
             if (num != -1) {
                 digit = num;
@@ -33,7 +32,7 @@ public class 수이어쓰기1790 {
             return String.valueOf(-1);
         } else {
             String num = String.valueOf(answer);
-            return String.valueOf(num.charAt(num.length() - (digit - K)));
+            return String.valueOf(num.charAt(num.length() - 1 - (digit - K)));
         }
     }
 
@@ -46,7 +45,7 @@ public class 수이어쓰기1790 {
             N -= mul;
             mul *= 10;
         }
-        digit += (N * mul);
+        digit += (N * num.length());
         if (digit >= K) {
             return digit;
         } else {

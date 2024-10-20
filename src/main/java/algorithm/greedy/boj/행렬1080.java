@@ -1,47 +1,49 @@
 package algorithm.greedy.boj;
 
-import java.util.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class 행렬1080 {
-    int[][] input, output;
+    int[][] map1;
+    int[][] map2;
+
+    public 행렬1080(int N, int M) {
+        this.map1 = new int[N][M];
+        this.map2 = new int[N][M];
+    }
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
-        행렬1080 main = new 행렬1080();
-        main.input = new int[N][M];
-        main.output = new int[N][M];
+        행렬1080 main = new 행렬1080(N, M);
 
         for (int i = 0; i < N; i++) {
-            String input = br.readLine();
+            String inputs = br.readLine();
             for (int j = 0; j < M; j++) {
-                main.input[i][j] = input.charAt(j) - '0';
+                main.map1[i][j] = inputs.charAt(j) - '0';
             }
         }
 
         for (int i = 0; i < N; i++) {
-            String input = br.readLine();
+            String inputs = br.readLine();
             for (int j = 0; j < M; j++) {
-                main.output[i][j] = input.charAt(j) - '0';
+                main.map2[i][j] = inputs.charAt(j) - '0';
             }
         }
 
-        bw.write(String.valueOf(main.solution()));
-        bw.flush();
-        bw.close();
-        br.close();
+        System.out.println(main.solution(N, M));
     }
 
-    public boolean compare() {
-        for (int i = 0; i < output.length; i++) {
-            for (int j = 0; j < output[0].length; j++) {
-                if (output[i][j] != input[i][j]) {
+    private boolean compare() {
+        for (int i = 0; i < this.map1.length; i++) {
+            for (int j = 0; j < this.map1[0].length; j++) {
+                if (this.map1[i][j] != this.map2[i][j]) {
                     return false;
                 }
             }
@@ -49,34 +51,36 @@ public class 행렬1080 {
         return true;
     }
 
-    public void change(int x, int y) {
-        for (int i = y; i < y + 3; i++) {
-            for (int j = x; j < x + 3; j++) {
-                input[i][j] = (input[i][j] == 1) ? 0 : 1;
+    private void change(int r, int c) {
+        for (int i = r; i < r + 3; i++) {
+            for (int j = c; j < c + 3; j++) {
+                this.map1[i][j] = this.map1[i][j] == 1 ? 0 : 1;
             }
         }
     }
 
-    public int solution() {
-        if (input.length < 3 || input[0].length < 3) {
+    private int solution(int n, int m) {
+        if (n < 3 || m < 3) {
             if (compare()) {
                 return 0;
-            } else {
-                return -1;
             }
+            return -1;
         }
-        int answer = 0;
-        for (int i = 0; i < input.length - 2; i++) {
-            for (int j = 0; j < input[0].length - 2; j++) {
-                if (input[i][j] != output[i][j]) {
-                    change(j, i);
-                    answer++;
-                    if (compare()) {
-                        return answer;
-                    }
+
+        int count = 0;
+        for (int i = 0; i < n - 2; i++) {
+            for (int j = 0; j < m - 2; j++) {
+                if (this.map1[i][j] != this.map2[i][j]) {
+                    count++;
+                    change(i, j);
                 }
             }
+        }
+
+        if (compare()) {
+            return count;
         }
         return -1;
     }
 }
+

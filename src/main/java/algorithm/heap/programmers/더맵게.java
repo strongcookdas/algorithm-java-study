@@ -2,7 +2,7 @@ package algorithm.heap.programmers;
 
 import java.util.*;
 
-class Solution {
+class 더맵게 {
     public int solution(int[] scoville, int K) {
         int answer = 0;
         PriorityQueue<Integer> pQ = new PriorityQueue<>();

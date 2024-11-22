@@ -4,7 +4,7 @@ import java.util.*;
 import java.io.*;
 
 // https://www.acmicpc.net/problem/1916
-public class Main {
+public class 최소비용구하기1916 {
 
     static class Node implements Comparable<Node> {
         int node;
@@ -26,7 +26,7 @@ public class Main {
     int[] ch;
     int[] dis;
 
-    public Main(int n) {
+    public 최소비용구하기1916(int n) {
         ch = new int[n + 1];
         dis = new int[n + 1];
         Arrays.fill(dis, Integer.MAX_VALUE);
@@ -39,7 +39,7 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
         int M = Integer.parseInt(br.readLine());
-        Main main = new Main(N);
+        최소비용구하기1916 main = new 최소비용구하기1916(N);
         StringTokenizer st;
         for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());

@@ -3,80 +3,80 @@ package algorithm.dijkstra.boj;
 import java.util.*;
 import java.io.*;
 
-public class 최소비용구하기1916 {
-    int[] dis;
-    ArrayList<ArrayList<Edge>> graph;
+// https://www.acmicpc.net/problem/1916
+public class Main {
 
-    static class Edge implements Comparable<Edge> {
+    static class Node implements Comparable<Node> {
         int node;
-        int cost;
+        int dis;
 
-        public Edge(int node, int cost) {
-            this.node = node;
-            this.cost = cost;
+        public Node(int d, int c) {
+            this.node = d;
+            this.dis = c;
         }
 
         @Override
-        public int compareTo(Edge o) {
-            return this.cost - o.cost;
+        public int compareTo(Node o) {
+            return this.dis - o.dis;
+        }
+    }
+
+    PriorityQueue<Node> pq = new PriorityQueue<>();
+    ArrayList<ArrayList<Node>> graph = new ArrayList<>();
+    int[] ch;
+    int[] dis;
+
+    public Main(int n) {
+        ch = new int[n + 1];
+        dis = new int[n + 1];
+        Arrays.fill(dis, Integer.MAX_VALUE);
+        for (int i = 0; i < n + 1; i++) {
+            graph.add(new ArrayList<>());
         }
     }
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
-        최소비용구하기1916 main = new 최소비용구하기1916();
         int N = Integer.parseInt(br.readLine());
-        main.dis = new int[N + 1];
-        main.graph = new ArrayList<>();
-        for (int i = 0; i <= N; i++) {
-            main.graph.add(new ArrayList<>());
-        }
-
         int M = Integer.parseInt(br.readLine());
+        Main main = new Main(N);
         StringTokenizer st;
         for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
-            int start = Integer.parseInt(st.nextToken());
-            int end = Integer.parseInt(st.nextToken());
-            int cost = Integer.parseInt(st.nextToken());
-
-            main.graph.get(start).add(new Edge(end, cost));
+            int s = Integer.parseInt(st.nextToken());
+            int d = Integer.parseInt(st.nextToken());
+            int c = Integer.parseInt(st.nextToken());
+            main.graph.get(s).add(new Node(d, c));
         }
-
         st = new StringTokenizer(br.readLine());
-        int start = Integer.parseInt(st.nextToken());
-        int end = Integer.parseInt(st.nextToken());
-        bw.write(String.valueOf(main.solution(start, end)));
-        bw.flush();
-        bw.close();
-        br.close();
+        int s = Integer.parseInt(st.nextToken());
+        int d = Integer.parseInt(st.nextToken());
+
+        System.out.println(main.solution(s, d));
+
     }
 
-    private int solution(int start, int end) {
-        PriorityQueue<Edge> pq = new PriorityQueue<>();
-        Arrays.fill(dis, Integer.MAX_VALUE);
-        dis[start] = 0;
-        pq.add(new Edge(start, 0));
-
+    private int solution(int s, int d) {
+        ch[s] = 1;
+        dis[s] = 0;
+        pq.offer(new Node(s, dis[s]));
         while (!pq.isEmpty()) {
-            Edge tmp = pq.poll();
-            int cost = dis[tmp.node];
-            if (tmp.cost > cost) {
+            Node tmp = pq.poll();
+            int now = tmp.node;
+            int nowCost = tmp.dis;
+            if (tmp.node == d) {
+                return dis[tmp.node];
+            }
+            if (nowCost > dis[now]) {
                 continue;
             }
-            if (tmp.node == end) {
-                return cost;
-            }
-            for (Edge e : graph.get(tmp.node)) {
-                int eCost = cost + e.cost;
-                if (dis[e.node] > eCost) {
-                    dis[e.node] = eCost;
-                    pq.add(new Edge(e.node, dis[e.node]));
+            for (Node n : graph.get(now)) {
+                if (nowCost + n.dis < dis[n.node]) {
+                    dis[n.node] = nowCost + n.dis;
+                    pq.offer(new Node(n.node, dis[n.node]));
                 }
             }
         }
-        return 0;
+        return -1;
     }
 }

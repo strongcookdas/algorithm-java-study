@@ -4,53 +4,42 @@ import java.util.*;
 import java.io.*;
 
 public class 리모컨1107 {
-    int[] numbers;
-    int channel;
-
+    static boolean[] num = new boolean[10];
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        리모컨1107 main = new 리모컨1107();
-        main.channel = Integer.parseInt(br.readLine());
-        int N = Integer.parseInt(br.readLine());
-        main.numbers = new int[10];
-        if (N != 0) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            for (int i = 0; i < N; i++) {
-                int idx = Integer.parseInt(st.nextToken());
-                main.numbers[idx] = 1;
+        Scanner sc = new Scanner(System.in);
+        int channel = sc.nextInt();
+        int count = sc.nextInt();
+        Arrays.fill(num, false);
+        for(int i = 0; i<count; i++) {
+            int n = sc.nextInt();
+            num[n] = true;
+        }
+
+        int ans = Math.abs(channel-100);
+        for(int i = 0; i<1000000; i++){
+            if(!isBroken(i)){
+                int press = Math.abs(channel-i);
+                press += String.valueOf(i).length();
+                ans = Math.min(ans, press);
             }
         }
 
-        bw.write(String.valueOf(main.solution()));
-        bw.flush();
-        bw.close();
-        br.close();
+        System.out.println(ans);
     }
 
-    private int solution() {
-        int answer = Math.abs(channel - 100);
-        for (int i = 0; i <= 1000000; i++) {
-            if (isPossible(i)) {
-                int pressButton = String.valueOf(i).length() + Math.abs(channel - i);
-                answer = Math.min(answer, pressButton);
-            }
+    public static boolean isBroken(int n) {
+        if(n==0){
+            return num[0];
         }
 
-        return answer;
-    }
-
-    private boolean isPossible(int i) {
-        if (i == 0) {
-            return numbers[0] == 0;
-        }
-        while (i > 0) {
-            int idx = i % 10;
-            if (numbers[idx] == 1) {
-                return false;
+        while(n>0){
+            int tmp = n%10;
+            if(num[tmp]){
+                return true;
             }
-            i /= 10;
+            n=n/10;
         }
-        return true;
+
+        return false;
     }
 }

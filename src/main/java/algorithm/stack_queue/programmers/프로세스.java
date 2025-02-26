@@ -8,18 +8,21 @@ public class 프로세스 {
         Queue<Integer> q = new LinkedList<>();
 
         for(int i = 0; i<priorities.length; i++){
-            pQ.offer(priorities[i]);
             q.offer(i);
+            pQ.offer(priorities[i]);
         }
 
-        int count = 1;
-        while(q.peek()!=location || pQ.peek()!=priorities[location]){
-            if(priorities[q.peek()]==pQ.peek()){
-                q.poll();
+        int cnt = 1;
+        while(q.peek()!=location || pQ.peek()!=priorities[q.peek()]){
+            if(pQ.peek() == priorities[q.peek()]){
+                cnt++;
                 pQ.poll();
-                count++;
-            }else q.offer(q.poll());
+                q.poll();
+            }else{
+                q.offer(q.poll());
+            }
         }
-        return count;
+
+        return cnt;
     }
 }

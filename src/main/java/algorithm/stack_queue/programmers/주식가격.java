@@ -3,30 +3,25 @@ package algorithm.stack_queue.programmers;
 import java.util.*;
 
 class 주식가격 {
-    static class Price{
-        int time;
-        int price;
-        public Price(int time, int price){
-            this.time = time;
-            this.price = price;
-        }
-    }
     public int[] solution(int[] prices) {
-        int[] answer = new int[prices.length];
-        Stack<Price> stack = new Stack<>();
+        Stack<int[]> stack = new Stack<>();
+        int n = prices.length;
+        int[] answer = new int[n];
 
-        for(int time = prices.length; time>0; time--){
-            int price = prices[time-1];
-            while(!stack.isEmpty() && stack.peek().price>=price){
-                stack.pop();
+        for(int i = 0; i<n; i++){
+            while(!stack.isEmpty() && prices[i] < stack.peek()[1]){
+                int[] prev = stack.pop();
+                answer[prev[0]] = i-prev[0];
             }
-            if(!stack.isEmpty()){
-                answer[time-1] = stack.peek().time - time;
-            }else{
-                answer[time-1] = prices.length - time;
-            }
-            stack.push(new Price(time, price));
+
+            stack.push(new int[]{i,prices[i]});
         }
+
+        while(!stack.isEmpty()){
+            int[] prev = stack.pop();
+            answer[prev[0]] = n - prev[0] -1;
+        }
+
         return answer;
     }
 }

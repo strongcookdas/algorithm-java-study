@@ -1,19 +1,19 @@
 package algorithm.dfs.programmers;
 
 class 타겟넘버 {
-    public int DFS(int L, int total, int target, int[] numbers){
-        int count = 0;
-        if(L==numbers.length){
-            if(total == target) return 1;
+    int answer = 0;
+    public void dfs(int[] numbers, int target, int level, int num){
+        if(level == numbers.length-1){
+            if(num==target){
+                answer++;
+            }
+            return;
         }
-        else{
-            count += DFS(L+1, total+numbers[L], target, numbers);
-            count += DFS(L+1, total-numbers[L], target, numbers);
-        }
-        return count;
+        dfs(numbers,target,level+1,num+numbers[level+1]);
+        dfs(numbers,target,level+1,num-numbers[level+1]);
     }
     public int solution(int[] numbers, int target) {
-        int answer = DFS(0,0,target, numbers);
+        dfs(numbers, target, -1, 0);
         return answer;
     }
 }

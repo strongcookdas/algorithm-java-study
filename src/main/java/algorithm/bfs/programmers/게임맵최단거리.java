@@ -2,47 +2,39 @@ package algorithm.bfs.programmers;
 
 import java.util.*;
 
-class Point {
-    int x, y;
-
-    public Point(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-}
-
 public class 게임맵최단거리 {
-    static int[][] ch;
-    static int[] dx = {0, 0, -1, 1};
-    static int[] dy = {-1, 1, 0, 0};
-    static Queue<Point> Q = new LinkedList<>();
+    public int bfs(int[][] maps){
+        Queue<int[]> q = new LinkedList<>();
+        boolean[][] ch = new boolean[maps.length][maps[0].length];
+        int[] dx = new int[]{0,0,-1,1};
+        int[] dy = new int[]{-1,1,0,0};
+        int cnt = 1;
 
-    public static int solution(int[][] map) {
-        int answer = 0;
-        ch = new int[101][101];
-        Q.offer(new Point(0, 0));
-        ch[0][0] = 1;
-        while (!Q.isEmpty()) {
-            int n = Q.size();
-            for (int i = 0; i < n; i++) {
-                Point tmp = Q.poll();
-                if (tmp.x == map[0].length - 1 && tmp.y == map.length - 1) return answer;
-                for (int j = 0; j < dx.length; j++) {
-                    int nx = tmp.x + dx[j];
-                    int ny = tmp.y + dy[j];
-                    if (nx >= 0 && nx < map[0].length && ny >= 0 && ny < map.length && map[ny][nx] == 1 && ch[ny][nx] == 0) {
-                        Q.offer(new Point(nx, ny));
-                        ch[ny][nx] = 1;
+        q.offer(new int[]{0,0});
+        ch[0][0] = true;
+
+        while(!q.isEmpty()){
+            int n = q.size();
+            for(int i =0; i<n; i++){
+                int[] tmp = q.poll();
+                if(tmp[0] == maps[0].length-1 && tmp[1] == maps.length-1){
+                    return cnt;
+                }
+                for(int j = 0; j<dx.length; j++){
+                    int x = tmp[0] + dx[j];
+                    int y = tmp[1] + dy[j];
+                    if(x>=0 && x<maps[0].length && y>=0 && y<maps.length && maps[y][x] == 1 && !ch[y][x]){
+                        q.offer(new int[]{x, y});
+                        ch[y][x] = true;
                     }
                 }
             }
-            answer++;
+            cnt++;
         }
+
         return -1;
     }
-
-    public static void main(String[] args) {
-        int[][] arr = {{1, 0, 1, 1, 1}, {1, 0, 1, 0, 1}, {1, 0, 1, 1, 1}, {1, 1, 1, 0, 1}, {0, 0, 0, 0, 1}};
-        System.out.println(solution(arr));
+    public int solution(int[][] maps) {
+        return bfs(maps);
     }
 }

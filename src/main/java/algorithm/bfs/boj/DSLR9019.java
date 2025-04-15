@@ -10,69 +10,106 @@ package algorithm.bfs.boj;
  * 문제 잘못읽어 수식을 잘못세움
  */
 
+import algorithm.Main;
+
 import java.util.*;
 import java.io.*;
 
 public class DSLR9019 {
-    private int D(Integer number) {
-        return (2 * number) % 10000;
+    static class Pos{
+        int num;
+        String str;
+        public Pos(int num, String str){
+            this.num = num;
+            this.str = str;
+        }
+    }
+    // tip: arguments are passed via the field below this editor
+    public static void main(String[] args) throws IOException
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        int T = Integer.parseInt(br.readLine());
+        while(T--  > 0){
+            StringTokenizer st= new StringTokenizer(br.readLine());
+            int A = Integer.parseInt(st.nextToken());
+            int B = Integer.parseInt(st.nextToken());
+            String answer = solution(A,B);
+            bw.write(answer+"\n");
+        }
+
+
+        br.close();
+        bw.flush();
+        bw.close();
     }
 
-    private int S(Integer number) {
-        return (number == 0) ? 9999 : number - 1;
-    }
+    public static String solution(int A, int B){
+        Set<Integer> visit = new HashSet<>();
+        visit.add(A);
 
-    private int L(Integer number) {
-        return (number % 1000) * 10 + (number / 1000);
-    }
+        Queue<Pos> q = new LinkedList<>();
+        q.offer(new Pos(A,""));
 
-    private int R(Integer number) {
-        return (number % 10) * 1000 + (number / 10);
-    }
-
-    public String solution(int num1, int num2) {
-        Queue<Integer> q1 = new LinkedList<>();
-        Queue<String> q2 = new LinkedList<>();
-        HashSet<Integer> visited = new HashSet<>();
-
-        q1.offer(num1);
-        visited.add(num1);
-        q2.offer("");
-
-        while (!q1.isEmpty()) {
-            int n = q1.size();
-            for (int i = 0; i < n; i++) {
-                Integer number = q1.poll();
-                String commands = q2.poll();
-                if (number == num2) return commands;
-
-                int[] results = {D(number), S(number), L(number), R(number)};
-                char[] operations = {'D', 'S', 'L', 'R'};
-                for (int j = 0; j < 4; j++) {
-                    int result = results[j];
-                    if (!visited.contains(result)) {
-                        visited.add(result);
-                        q1.offer(result);
-                        q2.offer(commands + operations[j]);
-                    }
+        while(!q.isEmpty()){
+            int size = q.size();
+            for(int i = 0; i<size; i++){
+                Pos tmp = q.poll();
+                if(tmp.num==B){
+                    return tmp.str;
+                }
+                int d = D(tmp.num);
+                if(!visit.contains(d)){
+                    q.offer(new Pos(d, tmp.str+"D"));
+                    visit.add(d);
+                }
+                int s = S(tmp.num);
+                if(!visit.contains(s)){
+                    q.offer(new Pos(s, tmp.str+"S"));
+                    visit.add(s);
+                }
+                int l = L(tmp.num);
+                if(!visit.contains(l)){
+                    q.offer(new Pos(l, tmp.str+"L"));
+                    visit.add(l);
+                }
+                int r = R(tmp.num);
+                if(!visit.contains(r)){
+                    q.offer(new Pos(r, tmp.str+"R"));
+                    visit.add(r);
                 }
             }
         }
-        return "";
+        return null;
     }
 
-
-    public static void main(String[] args) throws IOException {
-        DSLR9019 main = new DSLR9019();
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        int N = Integer.parseInt(br.readLine());
-        while ((N--) > 0) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            bw.write(main.solution(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())) + "\n");
+    public static int D(int n){
+        n*=2;
+        if(n>9999){
+            return n%10000;
+        }else{
+            return n;
         }
-        bw.flush();
-        bw.close();
-        br.close();
+    }
+
+    public static int S(int n){
+        if(n==0){
+            return 9999;
+        }else{
+            return n-1;
+        }
+    }
+
+    public static int L(int n){
+        int div = n/1000;
+        int mod = n%1000;
+        return mod*10+div;
+    }
+
+    public static int R(int n){
+        int div = n/10;
+        int mod = n%10;
+        return mod*1000+div;
     }
 }

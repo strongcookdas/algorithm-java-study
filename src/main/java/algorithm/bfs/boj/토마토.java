@@ -1,63 +1,68 @@
 package algorithm.bfs.boj;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 
-class Point {
-    int x, y;
-
-    public Point(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-}
-
 public class 토마토 {
-    static int M, N, day = 0;
-    static int[] dx = {0, 1, 0, -1}, dy = {-1, 0, 1, 0};
-    static int[][] box, dis;
-    static Queue<Point> Q;
+    static int[][] arr;
+    static int[] dx = {0, 0, -1, 1};
+    static int[] dy = {-1, 1, 0, 0};
 
-    public static void BFS() {
-        while (!Q.isEmpty()) {
-            int n = Q.size();
-            for (int i = 0; i < n; i++) {
-                Point tmp = Q.poll();
-                for (int j = 0; j < dx.length; j++) {
-                    int nx = tmp.x + dx[j];
-                    int ny = tmp.y + dy[j];
-                    if (nx > 0 && nx <= M && ny > 0 && ny <= N && box[ny][nx]==0 ) {
-                        box[ny][nx] = 1;
-                        dis[ny][nx] = dis[tmp.y][tmp.x] + 1;
-                        Q.offer(new Point(nx,ny));
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        int M = Integer.parseInt(st.nextToken()); // 가로
+        int N = Integer.parseInt(st.nextToken()); // 세로
+
+        arr = new int[N][M];
+
+        for(int i = 0; i < N; i++){
+            st = new StringTokenizer(br.readLine());
+            for(int j = 0; j < M; j++){
+                arr[i][j] = Integer.parseInt(st.nextToken());
+            }
+        }
+
+        System.out.println(solution());
+    }
+
+    public static int solution() {
+        Queue<int[]> q = new LinkedList<>();
+
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                if (arr[i][j] == 1) {
+                    q.offer(new int[]{j, i});
+                }
+            }
+        }
+
+        while (!q.isEmpty()) {
+            int[] cur = q.poll();
+            for (int d = 0; d < 4; d++) {
+                int nx = cur[0] + dx[d];
+                int ny = cur[1] + dy[d];
+
+                if (nx >= 0 && ny >= 0 && nx < arr[0].length && ny < arr.length) {
+                    if (arr[ny][nx] == 0) {
+                        arr[ny][nx] = arr[cur[1]][cur[0]] + 1;
+                        q.offer(new int[]{nx, ny});
                     }
                 }
             }
         }
-    }
 
-    public static void main(String[] args) {
-        Scanner kb = new Scanner(System.in);
-        M = kb.nextInt();
-        N = kb.nextInt();
-        box = new int[N + 1][M + 1];
-        dis = new int[N + 1][M + 1];
-        Q = new LinkedList<>();
-        for (int i = 1; i <= N; i++) {
-            for (int j = 1; j <= M; j++) {
-                box[i][j] = kb.nextInt();
-                if(box[i][j] == 1) Q.offer(new Point(j,i));
+        int result = 0;
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                if (arr[i][j] == 0) return -1;
+                result = Math.max(result, arr[i][j]);
             }
         }
-        BFS();
-        for (int i = 1; i <= N; i++) {
-            for (int j = 1; j <= M; j++) {
-                if (box[i][j] == 0) {
-                    System.out.println(-1);
-                    return;
-                }
-                day = Math.max(dis[i][j], day);
-            }
-        }
-        System.out.println(day);
+
+        return result - 1;
     }
 }
